@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vehicle Details | Vidyut</title>
+<link href="css/revamp.css" rel="stylesheet">
+<link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+<script src="js/config.js"></script>
+<script>
+  (function(){
+    var id = (window.__CONFIG || {}).GA_MEASUREMENT_ID || 'GA_TAG_TO_BE_ADDED';
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', id);
+  })();
+</script>
+</head>
+<body class="detail-product-page"><div class="page-shell">
+<div id="site-header"></div>
+<main>
+<section class="section" style="padding-top:6rem;">
+<div class="container">
+  <nav class="page-breadcrumbs" aria-label="Breadcrumb" id="detail-breadcrumbs"></nav>
+  <div class="detail-layout" id="detail-content" hidden>
+    <div class="detail-gallery">
+      <div class="detail-main-img"><img id="detail-hero" src="" alt=""></div>
+      <div class="detail-thumbs" id="detail-thumbs"></div>
+    </div>
+    <div class="detail-info">
+      <span class="detail-badge" id="detail-badge"></span>
+      <h1 id="detail-name"></h1>
+      <p class="detail-brand" id="detail-brand"></p>
+      <p class="detail-desc" id="detail-desc"></p>
+      <div class="detail-specs" id="detail-specs" hidden>
+        <h3>Specifications</h3>
+        <div class="detail-specs-grid">
+          <div class="detail-spec-item"><div class="detail-spec-label">Ex-showroom Price (Lakh)</div><div class="detail-spec-value" id="spec-price">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">Power</div><div class="detail-spec-value" id="spec-power">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">Payload / Seating</div><div class="detail-spec-value" id="spec-payload">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">GVW / GCW (Kgs)</div><div class="detail-spec-value" id="spec-gvw">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">Range (km/charge)</div><div class="detail-spec-value" id="spec-range">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">Charging Time (hours)</div><div class="detail-spec-value" id="spec-charging">---</div></div>
+          <div class="detail-spec-item"><div class="detail-spec-label">Tyres</div><div class="detail-spec-value" id="spec-tyres">---</div></div>
+        </div>
+      </div>
+      <a class="detail-cta" href="lead-gen.html" id="detail-apply">Apply Now</a>
+      <br>
+      <a class="detail-back" id="detail-back" href="electric-vehicles.html">&larr; Back to vehicles</a>
+    </div>
+  </div>
+  <div class="detail-empty" id="detail-empty" hidden>
+    <h2>Vehicle not found</h2>
+    <p>The vehicle you're looking for doesn't exist or may have been moved.</p>
+    <a class="detail-cta" href="electric-vehicles.html">Browse vehicles</a>
+  </div>
+</div>
+</section>
+</main>
+<div id="site-footer"></div>
+</div>
+<script src="data/content/products-data.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var params = new URLSearchParams(window.location.search);
+  var handle = params.get("handle") || "";
+  var product = null;
+
+  var all = (window.VIDYUT_PRODUCTS && window.VIDYUT_PRODUCTS.all) || [];
+  for (var i = 0; i < all.length; i++) {
+    if (all[i].handle === handle) { product = all[i]; break; }
+  }
+
+  if (!product) {
+    try {
+      var stored = JSON.parse(sessionStorage.getItem("vidyutSelectedProduct") || "{}");
+      if (stored.handle === handle) product = stored;
+    } catch (e) {}
+  }
+
+  var contentEl = document.getElementById("detail-content");
+  var emptyEl = document.getElementById("detail-empty");
+
+  if (!product || !product.handle) {
+    emptyEl.hidden = false;
+    return;
+  }
+
+  contentEl.hidden = false;
+  document.title = product.name + " | Vidyut";
+
+  document.getElementById("detail-name").textContent = product.name || "";
+  document.getElementById("detail-brand").textContent = product.brand || "";
+  document.getElementById("detail-desc").textContent = product.description || "";
+
+  var badge = product.vehicle_type || product.segment || "";
+  document.getElementById("detail-badge").textContent = badge;
+
+  var specs = product.specs || {};
+  var specMap = [
+    ["spec-price", specs.price],
+    ["spec-power", specs.power],
+    ["spec-payload", specs.payload],
+    ["spec-gvw", specs.gvw],
+    ["spec-range", specs.range],
+    ["spec-charging", specs.charging_time],
+    ["spec-tyres", specs.tyres]
+  ];
+  var hasAnySpec = false;
+  for (var s = 0; s < specMap.length; s++) {
+    var val = specMap[s][1] || "";
+    if (val && val.toLowerCase().indexOf("nan") === -1) {
+      document.getElementById(specMap[s][0]).textContent = val;
+      hasAnySpec = true;
+    }
+  }
+  if (hasAnySpec) {
+    document.getElementById("detail-specs").hidden = false;
+  }
+
+  var images = [product.image_local || ""];
+  var gallery = product.gallery || [];
+  for (var g = 0; g < gallery.length; g++) {
+    images.push(gallery[g]);
+  }
+
+  var heroImg = document.getElementById("detail-hero");
+  heroImg.src = images[0];
+  heroImg.alt = product.name || "";
+
+  var thumbsEl = document.getElementById("detail-thumbs");
+  if (images.length > 1) {
+    for (var t = 0; t < images.length; t++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = idx === 0 ? "is-active" : "";
+        btn.setAttribute("aria-label", "View image " + (idx + 1));
+        var img = document.createElement("img");
+        img.src = images[idx];
+        img.alt = (product.name || "") + " image " + (idx + 1);
+        btn.appendChild(img);
+        btn.addEventListener("click", function () {
+          heroImg.src = images[idx];
+          thumbsEl.querySelectorAll("button").forEach(function (b) { b.classList.remove("is-active"); });
+          btn.classList.add("is-active");
+        });
+        thumbsEl.appendChild(btn);
+      })(t);
+    }
+  }
+
+  var crumbs = document.getElementById("detail-breadcrumbs");
+  var backLink = document.getElementById("detail-back");
+  var seg = product.segment || "";
+  var cls = product.vehicle_class || "";
+
+  if (seg === "Personal") {
+    backLink.href = "personal-4w.html";
+    backLink.textContent = "\u2190 Back to Personal 4W";
+    crumbs.innerHTML =
+      '<a href="electric-vehicles.html">Vehicles</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="personal-vehicles.html">Personal</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="personal-4w.html">4W</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<span class="is-current">' + (product.name || "") + '</span>';
+  } else if (cls === "4W") {
+    backLink.href = "commercial-4w.html";
+    backLink.textContent = "\u2190 Back to Commercial 4W";
+    crumbs.innerHTML =
+      '<a href="electric-vehicles.html">Vehicles</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="commercial-vehicles.html">Commercial</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="commercial-4w.html">4W</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<span class="is-current">' + (product.name || "") + '</span>';
+  } else {
+    backLink.href = "commercial-3w.html";
+    backLink.textContent = "\u2190 Back to Commercial 3W";
+    crumbs.innerHTML =
+      '<a href="electric-vehicles.html">Vehicles</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="commercial-vehicles.html">Commercial</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<a href="commercial-3w.html">3W</a>' +
+      '<span class="page-breadcrumb-sep">/</span>' +
+      '<span class="is-current">' + (product.name || "") + '</span>';
+  }
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/revamp.js"></script>
+</body></html>

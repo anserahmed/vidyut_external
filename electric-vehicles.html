@@ -1,0 +1,535 @@
+<!-- electric-vehicles  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Electric Vehicles | Vidyut</title>
+    <meta
+      name="description"
+      content="Explore personal, commercial and pre-owned electric ownership paths with Vidyut."
+    />
+    <link href="css/revamp.css" rel="stylesheet" />
+    <style>
+      /* ── EV Journey Cards ───────────────────────────────────────────── */
+      .ev-journey-section {
+        padding: clamp(3rem, 6vw, 6rem) 0;
+        background: #f7f7f9;
+      }
+
+      .ev-journey-section .section-head {
+        text-align: center;
+        margin-bottom: clamp(2rem, 4vw, 3.5rem);
+      }
+
+      .ev-journey-section .section-head h2 {
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.6rem;
+        color: #1a1a2e;
+      }
+
+      .ev-journey-section .section-head p.lead {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #555;
+        max-width: 520px;
+        margin-inline: auto;
+        line-height: 1.65;
+      }
+
+      /* Card grid — 3 cols → 1 col on mobile */
+      .ev-journey-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(1.25rem, 2.5vw, 2rem);
+        align-items: stretch;
+      }
+
+      @media (max-width: 900px) {
+        .ev-journey-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 580px) {
+        .ev-journey-grid {
+          grid-template-columns: 1fr;
+          gap: 1.25rem;
+        }
+      }
+
+      /* Individual card */
+      .ev-journey-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .ev-journey-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.13);
+      }
+
+      /* Image area — tall, full-width, slightly zooms on hover */
+      .ev-journey-card__image-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        background: #e8e8ee;
+      }
+
+      .ev-journey-card__image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.45s ease;
+      }
+
+      .ev-journey-card:hover .ev-journey-card__image-wrap img {
+        transform: scale(1.05);
+      }
+
+      /* Subtle category badge */
+      .ev-journey-card__badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        color: #1a1a2e;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.75rem;
+        border-radius: 100px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      /* Card body */
+      .ev-journey-card__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: clamp(1.25rem, 3vw, 1.75rem);
+        gap: 0.75rem;
+      }
+
+      .ev-journey-card__title {
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+        font-weight: 700;
+        color: #1a1a2e;
+        line-height: 1.25;
+        margin: 0;
+      }
+
+      .ev-journey-card__desc {
+        font-size: clamp(0.875rem, 1.5vw, 0.95rem);
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+        flex: 1;
+      }
+
+      .ev-journey-card__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: 0.5rem;
+        padding: 0.7rem 1.4rem;
+        border-radius: 10px;
+        background: #1a1a2e;
+        color: #fff !important;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.01em;
+        transition:
+          background 0.2s ease,
+          gap 0.2s ease;
+        align-self: flex-start;
+        border: none;
+      }
+
+      .ev-journey-card__cta:hover {
+        background: #2d2d50;
+        gap: 0.7rem;
+      }
+
+      .ev-journey-card__cta svg {
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+
+      .ev-journey-card:hover .ev-journey-card__cta svg {
+        transform: translateX(3px);
+      }
+
+      /* Accent line at bottom of card on hover */
+      .ev-journey-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #6c4ef2, #3ecfcf);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s ease;
+      }
+
+      .ev-journey-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* ── Hero full-bleed fix ─────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: rgba(10, 10, 20, 0.18);
+      }
+
+      .hero .hero-container {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+        padding: 0 clamp(1.25rem, 5vw, 3rem);
+      }
+
+      .hero .hero-container h1 {
+        margin-bottom: 1rem;
+      }
+
+      .hero .hero-container .lead {
+        margin-inline: auto;
+        max-width: 560px;
+      }
+
+      /* ── Nav responsive ─────────────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: #fff;
+          padding: 1rem 1.5rem;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+          z-index: 100;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .mobile-toggle {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+
+  <body class="">
+    <div class="page-shell">
+   <header class="site-header">
+      <div class="container nav-inner">
+        <a class="brand-mark" href="index.html"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>
+        <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+        <nav class="nav-links" aria-label="Primary Navigation">
+          <a href="index.html">Home</a>
+          <a class="active" href="own-electric.html">Own Electric</a>
+          <a href="https://www.vidyutnextride.com/">NextRide</a>
+          <a href="solutions.html">Solutions</a>
+          <a href="for-customers.html">For Customers</a>
+          <a href="for-lenders.html">For Lenders</a>
+          <a href="for-investors.html">For Investors</a>
+          <a href="about-us.html">Company</a>
+          <a href="careers.html">Careers</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+      <main>
+        <!-- ── Hero ──────────────────────────────────────────────────── -->
+        <section
+          class="hero"
+          style="
+            position: relative;
+            height: 100vh;
+            min-height: 520px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow: hidden;
+          "
+        >
+          <div
+            class="hero-media"
+            aria-hidden="true"
+            style="position: absolute; inset: 0; z-index: 0"
+          >
+            <picture style="display: block; width: 100%; height: 100%">
+              <source
+                media="(max-width: 767px)"
+                srcset="images/vehicle-financing-header1.webp"
+              />
+              <img
+                src="images/vehicle-financing-header.webp"
+                alt=""
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center;
+                  display: block;
+                "
+              />
+            </picture>
+          </div>
+          <div
+            class="hero-overlay"
+            style="
+              position: absolute;
+              inset: 0;
+              z-index: 1;
+              background: rgba(10, 10, 20, 0.18);
+            "
+          ></div>
+          <div
+            class="hero-container"
+            style="
+              position: relative;
+              z-index: 2;
+              width: 100%;
+              text-align: left;
+              padding: clamp(6rem, 15vw, 10rem) clamp(1.5rem, 8vw, 7rem) 0;
+            "
+          >
+            <h1 style="margin-bottom: 1rem; max-width: 1000px">
+              Choose Your Ownership Track.
+            </h1>
+            <p style="margin-bottom: 1rem; color: white; max-width: 520px">
+              Personal, commercial, and pre-owned EVs under one ownership
+              infrastructure.
+            </p>
+          </div>
+          <style>
+            @media (max-width: 767px) {
+              .hero {
+                align-items: flex-start !important;
+              }
+              .hero .hero-container {
+                text-align: left !important;
+                padding: clamp(5rem, 20vw, 7rem) clamp(1.25rem, 5vw, 2rem) 0 !important;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+              }
+            }
+          </style>
+        </section>
+
+        <!-- ── Pick Your Journey ─────────────────────────────────────── -->
+        <section class="ev-journey-section">
+          <div class="container">
+            <div class="section-head">
+              <h2>Pick Your Journey.</h2>
+              <p class="lead">
+                Explore EVs within a single, streamlined ownership platform.
+              </p>
+            </div>
+
+            <div class="ev-journey-grid">
+              <!-- Personal EVs -->
+              <div class="ev-journey-card">
+                <div class="ev-journey-card__image-wrap">
+                  <span class="ev-journey-card__badge">Personal</span>
+                  <img
+                    loading="lazy"
+                    src="images/personal-vehicle-thembnail.png"
+                    alt="Personal electric vehicles"
+                  />
+                </div>
+                <div class="ev-journey-card__body">
+                  <h3 class="ev-journey-card__title">Personal EVs</h3>
+                  <p class="ev-journey-card__desc">
+                    Own your personal electric vehicle with flexible financing,
+                    low down payments, and usage-linked EMIs built around your
+                    lifestyle.
+                  </p>
+                  <a
+                    class="ev-journey-card__cta"
+                    href="personal-vehicles.html"
+                    data-track="ev_personal"
+                  >
+                    Explore Personal EVs
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 8h10M9 4l4 4-4 4"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Commercial EVs -->
+              <div class="ev-journey-card">
+                <div class="ev-journey-card__image-wrap">
+                  <span class="ev-journey-card__badge">Commercial</span>
+                  <img
+                    loading="lazy"
+                    src="images/commercial-vehicle-thumbnail.webp"
+                    alt="Commercial electric vehicles"
+                  />
+                </div>
+                <div class="ev-journey-card__body">
+                  <h3 class="ev-journey-card__title">Commercial EVs</h3>
+                  <p class="ev-journey-card__desc">
+                    Scale your fleet with purpose-built commercial EVs backed by
+                    structured maintenance, higher uptime, and flexible B2B
+                    financing options.
+                  </p>
+                  <a
+                    class="ev-journey-card__cta"
+                    href="commercial-vehicles.html"
+                    data-track="ev_commercial"
+                  >
+                    Explore Commercial EVs
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 8h10M9 4l4 4-4 4"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Pre-Owned EVs -->
+              <div class="ev-journey-card">
+                <div class="ev-journey-card__image-wrap">
+                  <span class="ev-journey-card__badge">Pre-Owned</span>
+                  <img
+                    loading="lazy"
+                    src="images/preowned-vehicles-thumb.webp"
+                    alt="Pre-owned electric vehicles"
+                  />
+                </div>
+                <div class="ev-journey-card__body">
+                  <h3 class="ev-journey-card__title">Pre-Owned EVs</h3>
+                  <p class="ev-journey-card__desc">
+                    Browse certified pre-owned EVs on NextRide — verified,
+                    fairly priced, and backed by Vidyut's resale intelligence
+                    for complete peace of mind.
+                  </p>
+                  <a
+                    class="ev-journey-card__cta"
+                    href="https://www.vidyutnextride.com/"
+                    target="_blank"
+                    rel="noopener"
+                    data-track="ev_preowned"
+                  >
+                    Explore Pre-Owned EVs
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 8h10M9 4l4 4-4 4"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div>© VidyutTech 2026</div>
+          <div class="footer-links">
+            <a href="personal-vehicles.html">Personal</a>
+            <a href="commercial-vehicles.html">Commercial</a>
+            <a href="pre-owned.html">Pre-Owned</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/revamp.js"></script>
+  </body>
+</html>

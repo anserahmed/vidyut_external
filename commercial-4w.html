@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Commercial 4W | Vidyut</title>
+<link href="css/revamp.css" rel="stylesheet"></head>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+
+<body class="personal-listings-page commercial-4w-page"><div class="page-shell">
+<header class="site-header"><div class="container nav-inner"><a class="brand-mark" href="index.html"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a><button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button><nav class="nav-links" aria-label="Primary Navigation"><a href="index.html">Home</a><a href="own-electric.html">Own Electric</a><a href="https://www.vidyutnextride.com/">NextRide</a><a href="services.html">Solutions</a><a class="active" href="commercial-4w.html">For Customers</a><a href="for-lenders.html">For Lenders</a><a href="for-investors.html">For Investors</a><a href="about-us.html">Company</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></nav></div></header>
+<main>
+<section class="section personal-hero" style="padding-top:6rem;"><div class="container"><p class="eyebrow">Commercial 4W</p></div><img class="personal-hero-image" loading="lazy" src="images/commercial-4W.webp" alt="Commercial 4W"></section>
+<section class="section alt personal-listing-section"><div class="container">
+<nav class="page-breadcrumbs" aria-label="Breadcrumb"><a href="electric-vehicles.html">Vehicles</a><span class="page-breadcrumb-sep">/</span><a href="commercial-vehicles.html">Commercial EVs</a><span class="page-breadcrumb-sep">/</span><span class="is-current">Commercial 4W</span></nav>
+<div class="brand-filter-head"><p class="eyebrow">Brands</p></div>
+<div class="brand-filter-bar" role="toolbar" aria-label="Brand filters">
+  <button class="brand-filter is-active" type="button" data-brand-filter="all">All</button>
+</div>
+<div class="card-grid-3 personal-listings-grid" data-listing-grid></div>
+<p class="form-hint personal-filter-empty" hidden>No vehicles match the selected brand.</p>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><div>© VidyutTech 2026</div><div class="footer-links"><a href="commercial-vehicles.html">Back to Commercial</a><a href="contact.html">Contact</a></div></div></footer>
+</div><script src="data/content/products-data.js"></script><script>
+document.addEventListener("DOMContentLoaded", function () {
+  var products = ((window.VIDYUT_PRODUCTS && window.VIDYUT_PRODUCTS.commercial) || []).filter(function (item) {
+    return item.segment === "Commercial" && item.vehicle_type === "4W Cargo";
+  });
+  var filterBar = document.querySelector(".brand-filter-bar");
+  var grid = document.querySelector("[data-listing-grid]");
+  var emptyState = document.querySelector(".personal-filter-empty");
+  if (!filterBar || !grid) return;
+
+  var brands = [];
+  products.forEach(function (item) {
+    if (item.brand && brands.indexOf(item.brand) === -1) brands.push(item.brand);
+  });
+  brands.sort();
+  brands.forEach(function (brand) {
+    var button = document.createElement("button");
+    button.className = "brand-filter";
+    button.type = "button";
+    button.setAttribute("data-brand-filter", brand);
+    button.textContent = brand;
+    filterBar.appendChild(button);
+  });
+
+  function buildCard(item) {
+    return '' +
+      '<a class="testimonial-card vehicle-listing-card" href="detail_product.html?handle=' + encodeURIComponent(item.handle || "") + '" data-brand="' + (item.brand || "") + '" data-track="c4w_' + (item.handle || "") + '" data-handle="' + (item.handle || "") + '" data-name="' + (item.name || "") + '" data-description="' + (item.description || "") + '" data-image="' + (item.image_local || "") + '" data-price="' + (item.price || "") + '" data-category="' + (item.categories_raw || "") + '" aria-label="View ' + (item.name || "vehicle") + ' details">' +
+        '<img loading="lazy" src="' + (item.image_local || "") + '" alt="' + (item.name || "") + '">' +
+        '<div class="testimonial-content"><h3>' + (item.name || "") + '</h3><p class="meta">' + (item.brand || "") + '</p><p class="quote">' + (item.description || "") + '</p></div>' +
+      '</a>';
+  }
+
+  function applyFilter(brand) {
+    grid.innerHTML = "";
+    var visible = 0;
+    products.forEach(function (item) {
+      var matches = brand === "all" || item.brand === brand;
+      if (!matches) return;
+      visible += 1;
+      grid.insertAdjacentHTML("beforeend", buildCard(item));
+    });
+    var cards = grid.querySelectorAll(".vehicle-listing-card[data-brand]");
+    cards.forEach(function (card) {
+      card.addEventListener("click", function () {
+        var payload = {
+          handle: card.getAttribute("data-handle") || "",
+          name: card.getAttribute("data-name") || "",
+          brand: card.getAttribute("data-brand") || "",
+          description: card.getAttribute("data-description") || "",
+          image_local: card.getAttribute("data-image") || "",
+          price: card.getAttribute("data-price") || "",
+          categories_raw: card.getAttribute("data-category") || ""
+        };
+        try {
+          sessionStorage.setItem("vidyutSelectedProduct", JSON.stringify(payload));
+        } catch (err) {}
+      });
+    });
+    if (emptyState) emptyState.hidden = visible !== 0;
+    filterBar.querySelectorAll(".brand-filter").forEach(function (filter) {
+      filter.classList.toggle("is-active", filter.getAttribute("data-brand-filter") === brand);
+    });
+  }
+
+  filterBar.querySelectorAll(".brand-filter").forEach(function (filter) {
+    filter.addEventListener("click", function () {
+      var selected = filter.getAttribute("data-brand-filter");
+      var isAlreadyActive = filter.classList.contains("is-active") && selected !== "all";
+      applyFilter(isAlreadyActive ? "all" : selected);
+    });
+  });
+
+  applyFilter("all");
+});
+</script><script src="js/config.js"></script><script src="js/revamp.js"></script></body></html>

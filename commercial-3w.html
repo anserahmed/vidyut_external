@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Commercial 3W | Vidyut</title>
+<link href="css/revamp.css" rel="stylesheet"></head>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+
+<body class="personal-listings-page commercial-3w-page"><div class="page-shell">
+<header class="site-header"><div class="container nav-inner"><a class="brand-mark" href="index.html"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a><button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button><nav class="nav-links" aria-label="Primary Navigation"><a href="index.html">Home</a><a href="own-electric.html">Own Electric</a><a href="https://www.vidyutnextride.com/">NextRide</a><a href="services.html">Solutions</a><a class="active" href="commercial-3w.html">For Customers</a><a href="for-lenders.html">For Lenders</a><a href="for-investors.html">For Investors</a><a href="about-us.html">Company</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></nav></div></header>
+<main>
+<section class="section personal-hero" style="padding-top:6rem;"><div class="container"><p class="eyebrow">Commercial 3W</p></div><img class="personal-hero-image" loading="lazy" src="images/commercial-3W.webp" alt="Commercial 3W"></section>
+<section class="section alt personal-listing-section"><div class="container">
+<nav class="page-breadcrumbs" aria-label="Breadcrumb"><a href="electric-vehicles.html">Vehicles</a><span class="page-breadcrumb-sep">/</span><a href="commercial-vehicles.html">Commercial EVs</a><span class="page-breadcrumb-sep">/</span><span class="is-current">Commercial 3W</span></nav>
+<div class="brand-filter-head"><p class="eyebrow">Vehicle Type</p></div>
+<div class="brand-filter-bar" role="toolbar" aria-label="Vehicle type filters">
+  <button class="brand-filter is-active" type="button" data-use-filter="all">All</button>
+  <button class="brand-filter" type="button" data-use-filter="Passenger">Passenger</button>
+  <button class="brand-filter" type="button" data-use-filter="Cargo">Cargo</button>
+</div>
+<div class="brand-filter-head"><p class="eyebrow">Brands</p></div>
+<div class="brand-filter-bar" role="toolbar" aria-label="Brand filters">
+  <button class="brand-filter is-active" type="button" data-brand-filter="all">All</button>
+</div>
+<div class="card-grid-3 personal-listings-grid" data-listing-grid></div>
+<p class="form-hint personal-filter-empty" hidden>No vehicles match the selected brand.</p>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><div>© VidyutTech 2026</div><div class="footer-links"><a href="commercial-vehicles.html">Back to Commercial</a><a href="contact.html">Contact</a></div></div></footer>
+</div><script src="data/content/products-data.js"></script><script>
+document.addEventListener("DOMContentLoaded", function () {
+  var products = ((window.VIDYUT_PRODUCTS && window.VIDYUT_PRODUCTS.commercial) || []).filter(function (item) {
+    return item.segment === "Commercial" && item.vehicle_class === "3W";
+  });
+  var brandFilters = document.querySelectorAll("[data-brand-filter]");
+  var useFilters = document.querySelectorAll("[data-use-filter]");
+  var filterBar = document.querySelector('[aria-label="Brand filters"]');
+  var grid = document.querySelector("[data-listing-grid]");
+  var emptyState = document.querySelector(".personal-filter-empty");
+  if (!grid || !filterBar) return;
+
+  var brands = [];
+  products.forEach(function (item) {
+    if (item.brand && brands.indexOf(item.brand) === -1) brands.push(item.brand);
+  });
+  brands.sort();
+  brands.forEach(function (brand) {
+    var button = document.createElement("button");
+    button.className = "brand-filter";
+    button.type = "button";
+    button.setAttribute("data-brand-filter", brand);
+    button.textContent = brand;
+    filterBar.appendChild(button);
+  });
+  brandFilters = document.querySelectorAll("[data-brand-filter]");
+
+  var activeBrand = "all";
+  var activeUse = "all";
+
+  function buildCard(item) {
+    return '' +
+      '<a class="testimonial-card vehicle-listing-card" href="detail_product.html?handle=' + encodeURIComponent(item.handle || "") + '" data-brand="' + (item.brand || "") + '" data-use="' + (item.vehicle_use || "") + '" data-track="c3w_' + (item.handle || "") + '" data-handle="' + (item.handle || "") + '" data-name="' + (item.name || "") + '" data-description="' + (item.description || "") + '" data-image="' + (item.image_local || "") + '" data-price="' + (item.price || "") + '" data-category="' + (item.categories_raw || "") + '" aria-label="View ' + (item.name || "vehicle") + ' details">' +
+        '<img loading="lazy" src="' + (item.image_local || "") + '" alt="' + (item.name || "") + '">' +
+        '<div class="testimonial-content"><h3>' + (item.name || "") + '</h3><p class="meta">' + (item.brand || "") + '</p><p class="quote">' + (item.description || "") + '</p></div>' +
+      '</a>';
+  }
+
+  function applyFilter() {
+    grid.innerHTML = "";
+    var visible = 0;
+    products.forEach(function (item) {
+      var matchesBrand = activeBrand === "all" || item.brand === activeBrand;
+      var matchesUse = activeUse === "all" || item.vehicle_use === activeUse;
+      var matches = matchesBrand && matchesUse;
+      if (!matches) return;
+      visible += 1;
+      grid.insertAdjacentHTML("beforeend", buildCard(item));
+    });
+    var cards = grid.querySelectorAll(".vehicle-listing-card[data-brand]");
+    cards.forEach(function (card) {
+      card.addEventListener("click", function () {
+        var payload = {
+          handle: card.getAttribute("data-handle") || "",
+          name: card.getAttribute("data-name") || "",
+          brand: card.getAttribute("data-brand") || "",
+          description: card.getAttribute("data-description") || "",
+          image_local: card.getAttribute("data-image") || "",
+          price: card.getAttribute("data-price") || "",
+          categories_raw: card.getAttribute("data-category") || ""
+        };
+        try {
+          sessionStorage.setItem("vidyutSelectedProduct", JSON.stringify(payload));
+        } catch (err) {}
+      });
+    });
+    if (emptyState) emptyState.hidden = visible !== 0;
+    brandFilters.forEach(function (filter) {
+      filter.classList.toggle("is-active", filter.getAttribute("data-brand-filter") === activeBrand);
+    });
+    useFilters.forEach(function (filter) {
+      filter.classList.toggle("is-active", filter.getAttribute("data-use-filter") === activeUse);
+    });
+  }
+
+  brandFilters.forEach(function (filter) {
+    filter.addEventListener("click", function () {
+      var selected = filter.getAttribute("data-brand-filter");
+      activeBrand = filter.classList.contains("is-active") && selected !== "all" ? "all" : selected;
+      applyFilter();
+    });
+  });
+
+  useFilters.forEach(function (filter) {
+    filter.addEventListener("click", function () {
+      var selected = filter.getAttribute("data-use-filter");
+      activeUse = filter.classList.contains("is-active") && selected !== "all" ? "all" : selected;
+      applyFilter();
+    });
+  });
+
+  applyFilter();
+});
+</script><script src="js/config.js"></script><script src="js/revamp.js"></script></body></html>

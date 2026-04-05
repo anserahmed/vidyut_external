@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Apply Now | Vidyut</title>
+<link href="css/revamp.css" rel="stylesheet"></head>
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+
+<body><div class="page-shell"><header class="site-header"><div class="container nav-inner"><a class="brand-mark" href="index.html"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a><button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button><nav class="nav-links" aria-label="Primary Navigation"><a href="index.html">Home</a><a class="active" href="own-electric.html">Own Electric</a><a href="https://www.vidyutnextride.com/">NextRide</a><a href="services.html">Solutions</a><a href="for-customers.html">For Customers</a><a href="for-lenders.html">For Lenders</a><a href="for-investors.html">For Investors</a><a href="about-us.html">Company</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></nav></div></header>
+<main><section class="section" style="padding-top:6rem;"><div class="container form-shell lead-product-shell"><p class="eyebrow">Apply Now</p><h1>Start Your EV Ownership Application.</h1><p class="form-hint">Your selected vehicle is prefilled below. Share your contact details and our team will reach out.</p><div class="lead-vehicle-summary" data-selected-vehicle><p class="lead-vehicle-label">Selected Vehicle</p><h3 data-selected-vehicle-name>Vehicle details will appear here.</h3><p class="lead-vehicle-meta" data-selected-vehicle-meta></p></div><form data-form="emi" data-form-recipient="support@vidyuttech.com" data-form-subject="Vidyut Apply Now Submission" novalidate><div class="form-grid"><div><label for="lg-name">Full Name</label><input id="lg-name" name="full_name" required autocomplete="name" inputmode="text" pattern="[A-Za-z ]+" title="Name should contain alphabets only"><p class="field-error" id="lg-name-error" aria-live="polite"></p></div></div><div class="form-grid two lead-contact-step" data-lead-contact-step hidden><div><label for="lg-phone">Phone</label><input id="lg-phone" name="phone" required inputmode="numeric" autocomplete="tel" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits"><p class="field-error" id="lg-phone-error" aria-live="polite"></p></div><div><label for="lg-email">Email</label><input id="lg-email" name="email" type="email" autocomplete="email"><p class="field-error" id="lg-email-error" aria-live="polite"></p></div></div><div class="form-grid lead-contact-step" data-lead-contact-step hidden><div><label for="lg-pincode">PIN Code</label><input id="lg-pincode" name="pincode" required inputmode="numeric" maxlength="6" pattern="[0-9]{6}" title="PIN code must be 6 digits"><p class="field-error" id="lg-pincode-error" aria-live="polite"></p></div></div><input type="hidden" id="lg-city" name="city" value="" data-preserve="true"><input type="hidden" id="lg-vehicle" name="vehicle_type" value="" data-preserve="true"><input type="hidden" name="vehicle_handle" value="" data-preserve="true"><input type="hidden" name="vehicle_name" value="" data-preserve="true"><input type="hidden" name="vehicle_brand" value="" data-preserve="true"><input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_term"><input type="hidden" name="utm_content"><div class="button-row"><button class="button primary" type="submit" data-track="leadgen_submit">Submit Application</button></div></form><div class="form-success contact-success-modal" role="dialog" aria-modal="true" aria-labelledby="lead-success-title" aria-hidden="true"><div class="contact-success-dialog"><button class="contact-success-close" type="button" aria-label="Close success message">x</button><h3 id="lead-success-title">Thank you</h3><p>We have received your details and someone from our team will reach out to you shortly.</p><div class="button-row contact-success-actions"><button class="button secondary contact-success-dismiss" type="button">Close</button></div></div></div></div></section></main>
+<footer class="site-footer"><div class="container footer-inner"><div>© VidyutTech 2026</div><div class="footer-links"><a href="own-electric.html">Own Electric</a><a href="contact.html">Contact</a></div></div></footer></div><script src="js/config.js"></script><script src="js/revamp.js"></script><script>
+(function () {
+  var form = document.querySelector("form[data-form='emi']");
+  if (!form) return;
+
+  var nameInput = document.getElementById("lg-name");
+  var phoneInput = document.getElementById("lg-phone");
+  var emailInput = document.getElementById("lg-email");
+  var pincodeInput = document.getElementById("lg-pincode");
+  var nameError = document.getElementById("lg-name-error");
+  var phoneError = document.getElementById("lg-phone-error");
+  var emailError = document.getElementById("lg-email-error");
+  var pincodeError = document.getElementById("lg-pincode-error");
+  var contactSteps = document.querySelectorAll("[data-lead-contact-step]");
+  var summaryName = document.querySelector("[data-selected-vehicle-name]");
+  var summaryMeta = document.querySelector("[data-selected-vehicle-meta]");
+
+  function normalizeVehicleType(product) {
+    var category = String((product && (product.categories_raw || product["Product Categories"])) || "");
+    if (category.indexOf("Personal") >= 0) return "4W";
+    if (category.indexOf("3W") >= 0) return "3W Passenger";
+    if (category.indexOf("Cargo") >= 0) return "3W Cargo";
+    return "4W";
+  }
+
+  function applySelectedVehicle(product) {
+    if (!product) return;
+    var name = product.name || product["Product Name"] || "Selected EV";
+    var brand = product.brand || "";
+    var handle = product.handle || product["Product Handle"] || "";
+    var vehicleType = normalizeVehicleType(product);
+
+    if (summaryName) summaryName.textContent = name;
+    if (summaryMeta) summaryMeta.textContent = [brand, vehicleType].filter(Boolean).join(" • ");
+
+    var mapping = {
+      vehicle_type: vehicleType,
+      vehicle_handle: handle,
+      vehicle_name: name,
+      vehicle_brand: brand
+    };
+
+    Object.keys(mapping).forEach(function (key) {
+      var input = form.querySelector("[name='" + key + "']");
+      if (input) input.value = mapping[key];
+    });
+  }
+
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var handle = params.get("handle");
+    var storedRaw = sessionStorage.getItem("vidyutSelectedProduct");
+    if (storedRaw) {
+      var storedProduct = JSON.parse(storedRaw);
+      var storedHandle = storedProduct && (storedProduct.handle || storedProduct["Product Handle"] || "");
+      if (!handle || !storedHandle || storedHandle === handle) {
+        applySelectedVehicle(storedProduct);
+      }
+    }
+  } catch (err) {
+    // Ignore session storage access failures.
+  }
+
+  function syncSteps() {
+    if (!contactSteps.length) return;
+    var show = !!(nameInput && nameInput.value.trim());
+    contactSteps.forEach(function (step) {
+      step.hidden = !show;
+    });
+  }
+
+  function setFieldError(field, errorNode, message) {
+    if (!field || !errorNode) return;
+    if (message) {
+      field.setAttribute("aria-invalid", "true");
+      errorNode.textContent = message;
+      errorNode.classList.add("show");
+      return;
+    }
+    field.removeAttribute("aria-invalid");
+    errorNode.textContent = "";
+    errorNode.classList.remove("show");
+  }
+
+  if (nameInput) {
+    nameInput.addEventListener("input", function () {
+      nameInput.value = nameInput.value.replace(/[^A-Za-z ]+/g, "").replace(/\s{2,}/g, " ");
+      setFieldError(nameInput, nameError, "");
+    });
+    nameInput.addEventListener("input", syncSteps);
+    nameInput.addEventListener("blur", syncSteps);
+    syncSteps();
+  }
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      phoneInput.value = phoneInput.value.replace(/\D+/g, "").slice(0, 10);
+      setFieldError(phoneInput, phoneError, "");
+    });
+  }
+
+  if (pincodeInput) {
+    pincodeInput.addEventListener("input", function () {
+      pincodeInput.value = pincodeInput.value.replace(/\D+/g, "").slice(0, 6);
+      setFieldError(pincodeInput, pincodeError, "");
+    });
+  }
+
+  if (emailInput) {
+    emailInput.addEventListener("input", function () {
+      setFieldError(emailInput, emailError, "");
+    });
+    emailInput.addEventListener("blur", function () {
+      var value = emailInput.value.trim();
+      if (!value) {
+        setFieldError(emailInput, emailError, "");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setFieldError(emailInput, emailError, "Enter a valid email address, for example name@example.com.");
+      }
+    });
+  }
+
+  form.addEventListener("submit", function (event) {
+    var nameValid = !nameInput || /^[A-Za-z ]+$/.test(nameInput.value.trim());
+    var phoneValid = !phoneInput || /^[0-9]{10}$/.test(phoneInput.value.trim());
+    var pincodeValid = !pincodeInput || /^[0-9]{6}$/.test(pincodeInput.value.trim());
+    var emailValid = !emailInput || !emailInput.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+
+    if (!nameValid) {
+      setFieldError(nameInput, nameError, "Only alphabets are allowed in the name.");
+      nameInput.focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
+    if (!phoneValid) {
+      setFieldError(phoneInput, phoneError, "Only digits are allowed and the number must be 10 digits.");
+      phoneInput.focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
+    if (!pincodeValid) {
+      setFieldError(pincodeInput, pincodeError, "PIN code is required and must be 6 digits.");
+      pincodeInput.focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
+    if (!emailValid) {
+      setFieldError(emailInput, emailError, "Enter a valid email address, for example name@example.com.");
+      emailInput.focus();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
+    setFieldError(nameInput, nameError, "");
+    setFieldError(phoneInput, phoneError, "");
+    setFieldError(emailInput, emailError, "");
+    setFieldError(pincodeInput, pincodeError, "");
+  }, true);
+
+  form.addEventListener("submit", function () {
+    window.setTimeout(syncSteps, 0);
+  });
+
+  var successModal = document.querySelector(".contact-success-modal");
+  if (successModal) {
+    var dismissButtons = successModal.querySelectorAll(".contact-success-close, .contact-success-dismiss");
+    dismissButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        successModal.classList.remove("show");
+        successModal.setAttribute("aria-hidden", "true");
+      });
+    });
+  }
+})();
+</script></body></html>
