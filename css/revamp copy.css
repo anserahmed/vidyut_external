@@ -152,45 +152,15 @@ main {
   height: auto;
 }
 
-/* ── Mobile toggle button ───────────────────────────────────────────────────── */
 .mobile-toggle {
-  display: none; /* hidden by default; shown via media query below */
-  align-items: center;
-  justify-content: center;
   min-width: 2.75rem;
   min-height: 2.75rem;
-  padding: 0;
   border: 1px solid var(--vd-border);
   border-radius: .75rem;
   background: transparent;
   color: var(--vd-text);
-  cursor: pointer;
-  flex-shrink: 0;
 }
 
-.mobile-toggle-icon {
-  width: 1.35rem;
-  height: 1.35rem;
-  display: block;
-  pointer-events: none;
-}
-
-/* Default state: show hamburger, hide close */
-.mobile-toggle-icon--close {
-  display: none;
-}
-
-/* When nav is open: hide hamburger, show close */
-.site-header.nav-open .mobile-toggle-icon--open {
-  display: none;
-}
-
-.site-header.nav-open .mobile-toggle-icon--close {
-  display: block;
-}
-
-/* ── Desktop nav (.nav-links--desktop) ─────────────────────────────────────── */
-/* Inherits base .nav-links styles; shown as flex row on desktop */
 .nav-links {
   display: none;
   flex-direction: column;
@@ -300,54 +270,8 @@ main {
   display: flex;
 }
 
-/* ── Mobile nav panel (.nav-links--mobile) ──────────────────────────────────── */
-/*
- * The mobile nav sits OUTSIDE .container (directly inside .site-header) so it
- * can span the full viewport width. It is hidden until .nav-open is toggled.
- * The desktop copy (.nav-links--desktop) is always hidden on mobile.
- */
-.nav-links--mobile {
-  display: none;
-  flex-direction: column;
-  gap: 0;
-  padding: .5rem .75rem .9rem;
-  margin: .4rem calc(50% - 50vw) 0; 
-  
-  /* width: 100vw; */
-  /* background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.96),
-    rgba(240, 232, 255, 0.96)
-  ); */
-  /* border-top: 1px solid rgba(255, 255, 255, 0.42); */
-  /* border-bottom: 1px solid var(--vd-border); */
-  /* backdrop-filter: blur(26px) saturate(160%); */
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
-  /* padding-bottom: 1rem; */
-   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.34),
-      rgba(200, 220, 255, 0.28)
-    );
-  /* border: 1px solid rgba(255, 255, 255, 0.42); */
-  border-radius: 1rem;
-  /* box-shadow:
-    0 1px 0 #ffffffd4 inset,
-    0 -1px 0 #ffffff66 inset,
-    0 10px 22px #160d2b16,
-    0 20px 34px #160d2b10; */
-  backdrop-filter: blur(26px) saturate(160%);
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
-}
-
-.nav-links--mobile a {
-  padding: .75rem .5rem;
-  border-bottom: 1px solid var(--vd-border);
-}
-
-.nav-links--mobile a:last-child {
-  border-bottom: 0;
+.nav-open .nav-links {
+  display: flex;
 }
 
 .button,
@@ -425,7 +349,6 @@ button.button.secondary:hover {
   align-items: center;
   isolation: isolate;
 }
-
 
 .hero-media {
   position: absolute;
@@ -1820,24 +1743,16 @@ button[disabled],
   display: none;
 }
 
-/* ── Breakpoint: tablet and up (≥ 48rem / 768px) ───────────────────────────── */
 @media (min-width: 48rem) {
   :root {
     --vd-header-h: 4.1rem;
   }
 
-  /* Hide the hamburger button on desktop */
   .mobile-toggle {
     display: none;
   }
 
-  /* Hide mobile-only nav panel on desktop */
-  .nav-links--mobile {
-    display: none !important;
-  }
-
-  /* Show desktop nav as flex row */
-  .nav-links--desktop {
+  .nav-links {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1986,23 +1901,7 @@ button[disabled],
   }
 }
 
-/* ── Breakpoint: mobile only (< 48rem / 768px) ──────────────────────────────── */
 @media (max-width: 47.99rem) {
-  /* Show the hamburger button on mobile */
-  .mobile-toggle {
-    display: flex;
-  }
-
-  /* Always hide the desktop nav copy on mobile */
-  .nav-links--desktop {
-    display: none !important;
-  }
-
-  /* Show the mobile nav panel only when header has .nav-open */
-  .site-header.nav-open .nav-links--mobile {
-    display: flex;
-  }
-
   .nav-links .nav-item {
     width: 100%;
   }
@@ -2050,7 +1949,6 @@ button[disabled],
   }
 }
 
-/* ── Breakpoint: wide desktop (≥ 64rem / 1024px) ───────────────────────────── */
 @media (min-width: 64rem) {
   :root {
     --vd-header-h: 4.2rem;
@@ -2661,9 +2559,14 @@ button[disabled],
 }
 
 .blur-bg{
+  
+
+
   z-index: 10000;
-  background: rgba(128, 0, 128, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  pointer-events: none;
+
+  background: rgba(128, 0, 128, 0.3); /* purple tint */
+  backdrop-filter: blur(10px); /* blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+
+  pointer-events: none; /* allows clicks through it (optional) */
 }

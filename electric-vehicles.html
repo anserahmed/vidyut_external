@@ -38,7 +38,7 @@
         line-height: 1.65;
       }
 
-      /* Card grid — 3 cols → 1 col on mobile */
+      /* Card grid — 3 cols → 2 col → 1 col on mobile */
       .ev-journey-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -81,7 +81,7 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.13);
       }
 
-      /* Image area — tall, full-width, slightly zooms on hover */
+      /* Image area */
       .ev-journey-card__image-wrap {
         position: relative;
         width: 100%;
@@ -103,7 +103,7 @@
         transform: scale(1.05);
       }
 
-      /* Subtle category badge */
+      /* Category badge */
       .ev-journey-card__badge {
         position: absolute;
         top: 1rem;
@@ -198,181 +198,137 @@
         transform: scaleX(1);
       }
 
-      /* ── Hero full-bleed fix ─────────────────────────────────────────── */
-      .hero {
+      /* ── Hero ───────────────────────────────────────────────────────── */
+      /*
+       * Do NOT re-declare .nav-links, .mobile-toggle, or any nav styles here.
+       * revamp.css owns all nav styles. Redefining them here was causing the
+       * hamburger misalignment and nav panel positioning bugs.
+       */
+      .ev-hero {
         position: relative;
         height: 100vh;
-        min-height: 480px;
+        min-height: 520px;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
       }
 
-      .hero-media {
+      .ev-hero__media {
         position: absolute;
         inset: 0;
         z-index: 0;
       }
 
-      .hero-media img {
+      .ev-hero__media picture,
+      .ev-hero__media img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
-        display: block;
       }
 
-      .hero-overlay {
+      .ev-hero__overlay {
         position: absolute;
         inset: 0;
         z-index: 1;
         background: rgba(10, 10, 20, 0.18);
       }
 
-      .hero .hero-container {
+      .ev-hero__copy {
         position: relative;
         z-index: 2;
         width: 100%;
-        text-align: center;
-        padding: 0 clamp(1.25rem, 5vw, 3rem);
+        height:  100%;
+        text-align: left;
+        padding: clamp(6rem, 70vw, 10rem) clamp(14rem, 19vw, 7rem) 0;
       }
+        .ev-hero__copy h1 {
+          /* margin-bottom: 1rem; */
+          /* margin-top: 3rem; */
+          /* max-width: 1000px; */
+          font-size: 64px;
+          font-weight: bold;
+          color: whitesmoke;
+        }
 
-      .hero .hero-container h1 {
+      .ev-hero__copy p {
         margin-bottom: 1rem;
+        color: rgb(0, 0, 0);
+        max-width: 520px;
+        font-weight: bolder;
       }
 
-      .hero .hero-container .lead {
-        margin-inline: auto;
-        max-width: 560px;
-      }
-
-      /* ── Nav responsive ─────────────────────────────────────────────── */
-      @media (max-width: 900px) {
-        .nav-links {
-          display: none;
-          flex-direction: column;
+      @media (max-width: 767px) {
+        .ev-hero__overlay {
           position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: #fff;
-          padding: 1rem 1.5rem;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-          z-index: 100;
+          inset: 0;
+          z-index: 1;
+          background: rgba(0, 0, 0, 0.625);
+          backdrop-filter: blur(3px) saturate(80%);
+          -webkit-backdrop-filter: blur(3px) saturate(80%);
+        }
+        .ev-hero {
+          align-items: flex-start;
+        }
+        .ev-hero__copy h1 {
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 1rem;
+          margin-top: 25vh;
+          max-width: 1000px;
+          font-size: 60px;
+          font-weight: bold;
+          color: whitesmoke;
         }
 
-        .nav-links.open {
+        .ev-hero__copy {
+          padding: clamp(5rem, 100px, 7rem) clamp(1.25rem, 50vw, 2rem) 0;
           display: flex;
+          flex-direction: column;
+          align-items: flex-start;
         }
-
-        .mobile-toggle {
-          display: block;
-        }
+         .ev-hero__copy p {
+        margin-top: 0rem;
+        color: rgb(170, 170, 170);
+        max-width: 520px;
+        font-weight: bolder;
+      }
       }
     </style>
   </head>
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
-  <body class="">
+  <body>
     <div class="page-shell">
-   <header class="site-header">
-      <div class="container nav-inner">
-        <a class="brand-mark" href="index.html"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>
-        <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
-        <nav class="nav-links" aria-label="Primary Navigation">
-          <a href="index.html">Home</a>
-          <a class="active" href="own-electric.html">Own Electric</a>
-          <a href="https://www.vidyutnextride.com/">NextRide</a>
-          <a href="solutions.html">Solutions</a>
-          <a href="for-customers.html">For Customers</a>
-          <a href="for-lenders.html">For Lenders</a>
-          <a href="for-investors.html">For Investors</a>
-          <a href="about-us.html">Company</a>
-          <a href="careers.html">Careers</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-      </div>
-    </header>
+      <!--
+        The <header class="site-header"> below is intentionally left as a
+        minimal shell. revamp.js will replace its innerHTML with the correct
+        dual-nav markup (nav-links--desktop + nav-links--mobile) automatically.
+      -->
+      <header class="site-header"></header>
 
       <main>
         <!-- ── Hero ──────────────────────────────────────────────────── -->
-        <section
-          class="hero"
-          style="
-            position: relative;
-            height: 100vh;
-            min-height: 520px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            overflow: hidden;
-          "
-        >
-          <div
-            class="hero-media"
-            aria-hidden="true"
-            style="position: absolute; inset: 0; z-index: 0"
-          >
-            <picture style="display: block; width: 100%; height: 100%">
+        <section class="ev-hero">
+          <div class="ev-hero__media" aria-hidden="true">
+            <picture>
               <source
                 media="(max-width: 767px)"
-                srcset="images/vehicle-financing-header1.webp"
+                srcset="images/vehicle-financing-header.webp"
               />
-              <img
-                src="images/vehicle-financing-header.webp"
-                alt=""
-                style="
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                  object-position: center;
-                  display: block;
-                "
-              />
+              <img src="images/vehicle-financing-header.webp" alt="" />
             </picture>
           </div>
-          <div
-            class="hero-overlay"
-            style="
-              position: absolute;
-              inset: 0;
-              z-index: 1;
-              background: rgba(10, 10, 20, 0.18);
-            "
-          ></div>
-          <div
-            class="hero-container"
-            style="
-              position: relative;
-              z-index: 2;
-              width: 100%;
-              text-align: left;
-              padding: clamp(6rem, 15vw, 10rem) clamp(1.5rem, 8vw, 7rem) 0;
-            "
-          >
-            <h1 style="margin-bottom: 1rem; max-width: 1000px">
-              Choose Your Ownership Track.
-            </h1>
-            <p style="margin-bottom: 1rem; color: white; max-width: 520px">
+          <div class="ev-hero__overlay"></div>
+          <div class="ev-hero__copy">
+            <h1>Choose Your Ownership Track.</h1>
+            <p>
               Personal, commercial, and pre-owned EVs under one ownership
               infrastructure.
             </p>
           </div>
-          <style>
-            @media (max-width: 767px) {
-              .hero {
-                align-items: flex-start !important;
-              }
-              .hero .hero-container {
-                text-align: left !important;
-                padding: clamp(5rem, 20vw, 7rem) clamp(1.25rem, 5vw, 2rem) 0 !important;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-              }
-            }
-          </style>
         </section>
 
         <!-- ── Pick Your Journey ─────────────────────────────────────── -->
@@ -518,17 +474,9 @@
         </section>
       </main>
 
-      <footer class="site-footer">
-        <div class="container footer-inner">
-          <div>© VidyutTech 2026</div>
-          <div class="footer-links">
-            <a href="personal-vehicles.html">Personal</a>
-            <a href="commercial-vehicles.html">Commercial</a>
-            <a href="pre-owned.html">Pre-Owned</a>
-          </div>
-        </div>
-      </footer>
+      <footer class="site-footer"></footer>
     </div>
+
     <script src="js/config.js"></script>
     <script src="js/revamp.js"></script>
   </body>

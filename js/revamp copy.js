@@ -81,60 +81,23 @@
     return '<button class="' + cls + '" type="button" aria-expanded="false">' + label + "</button>";
   }
 
-  var HAMBURGER_ICON =
-    '<svg class="mobile-toggle-icon mobile-toggle-icon--open" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">' +
-      '<line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-      '<line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-      '<line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-    '</svg>';
-
-  var CLOSE_ICON =
-    '<svg class="mobile-toggle-icon mobile-toggle-icon--close" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">' +
-      '<line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-      '<line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-    '</svg>';
-
   function renderGlobalMenu() {
     ensureRevampStyles();
     var active = activeMenuKey(window.location.pathname);
-
-    var linksHtml =
-      navLink("Home", "index.html", "home", active) +
-      navLink("Own Electric", "own-electric.html", "own", active) +
-      navLink("Vehicles", "electric-vehicles.html", "vehicles", active) +
-      navLink("NextRide ↗", "https://www.vidyutnextride.com/", "nextride", active) +
-      navLink("About Us", "about-us.html", "about", active) +
-      navLink("Careers", "careers.html", "careers", active) +
-      navLink("Contact Us", "contact.html", "contact", active);
-
-    /*
-     * Structure:
-     *
-     *  <header class="site-header">
-     *    <div class="container nav-inner">
-     *      <a class="brand-mark"> … </a>
-     *      <button class="mobile-toggle"> hamburger/close SVGs </button>
-     *      <nav class="nav-links nav-links--desktop"> … </nav>  ← inside container, desktop only
-     *    </div>
-     *    <nav class="nav-links nav-links--mobile"> … </nav>     ← outside container, full-width, mobile only
-     *  </header>
-     */
-
-
     var navMarkup =
-      '<div class="container nav-inner ">' +
+      '<div class="container nav-inner">' +
         '<a class="brand-mark" href="index.html" aria-label="Vidyut Home"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>' +
-        '<button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">' +
-          HAMBURGER_ICON +
-          CLOSE_ICON +
-        '</button>' +
-        '<nav class="nav-links  nav-links--desktop" aria-label="Primary Navigation">' +
-          linksHtml +
-        '</nav>' +
-      '</div>' +
-      '<nav class="nav-links nav-links--mobile" aria-label="Primary Navigation" aria-hidden="true">' +
-        linksHtml +
-      '</nav>';
+        '<button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>' +
+        '<nav class="nav-links" aria-label="Primary Navigation">' +
+          navLink("Home", "index.html", "home", active) +
+          navLink("Own Electric", "own-electric.html", "own", active) +
+          navLink("Vehicles", "electric-vehicles.html", "vehicles", active) +
+          navLink("NextRide ↗", "https://www.vidyutnextride.com/", "nextride", active) +
+          navLink("About Us", "about-us.html", "about", active) +
+          navLink("Careers", "careers.html", "careers", active) +
+          navLink("Contact Us", "contact.html", "contact", active) +
+        "</nav>" +
+      "</div>";
 
     var header = document.querySelector(".site-header");
     if (header) {
@@ -263,15 +226,9 @@
     var header = document.querySelector(".site-header");
     var button = document.querySelector(".mobile-toggle");
     if (!header || !button) return;
-
-    var mobileNav = header.querySelector(".nav-links--mobile");
-
     button.addEventListener("click", function () {
       var open = header.classList.toggle("nav-open");
       button.setAttribute("aria-expanded", String(open));
-      if (mobileNav) {
-        mobileNav.setAttribute("aria-hidden", open ? "false" : "true");
-      }
     });
   }
 
