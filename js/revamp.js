@@ -37,8 +37,9 @@
     // Normalize path: handle /, /about-us/, /about-us
     var path = pathname || "";
     if (path.endsWith("/")) path = path.slice(0, -1);
-    var p = path.split("/").pop() || "home";
-    p = p.replace(".html", "") || "home";
+    var p = path.split("/").pop();
+    if (p === "index" || p === "home" || !p) p = "home";
+    p = p.replace(".html", "");
 
     var ownPages = ["own-electric", "vehicle-financing", "battery-subscription-baas", "buyback-guarantee", "services", "for-customers"];
     var vehiclePages = ["electric-vehicles", "commercial-vehicles", "commercial-3w", "commercial-4w", "personal-vehicles", "personal-4w"];
@@ -95,12 +96,12 @@
 
     var linksHtml =
       navLink("Home", "/", "home", active) +
-      navLink("Own Electric", "/own-electric/", "own", active) +
-      navLink("Vehicles", "/electric-vehicles/", "vehicles", active) +
+      navLink("Own Electric", "/own-electric", "own", active) +
+      navLink("Vehicles", "/electric-vehicles", "vehicles", active) +
       navLink("NextRide ↗", "https://www.vidyutnextride.com/", "nextride", active) +
-      navLink("About Us", "/about-us/", "about", active) +
-      navLink("Careers", "/careers/", "careers", active) +
-      navLink("Contact Us", "/contact/", "contact", active);
+      navLink("About Us", "/about-us", "about", active) +
+      navLink("Careers", "/careers", "careers", active) +
+      navLink("Contact Us", "/contact", "contact", active);
 
     /*
      * Structure:
@@ -118,7 +119,7 @@
 
     var navMarkup =
       '<div class="container nav-inner ">' +
-        '<a class="brand-mark" href="index.html" aria-label="Vidyut Home"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>' +
+        '<a class="brand-mark" href="/" aria-label="Vidyut Home"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>' +
         '<button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">' +
           HAMBURGER_ICON +
           CLOSE_ICON +
@@ -163,7 +164,10 @@
   }
 
   function applyActiveFallback() {
-    var current = (window.location.pathname || "").split("/").pop() || "index.html";
+    var path = (window.location.pathname || "");
+    if (path.endsWith("/")) path = path.slice(0, -1);
+    var current = path.split("/").pop() || "home";
+    if (current === "index.html" || current === "index") current = "home";
     var links = document.querySelectorAll(".nav-links a[href]");
     var hasActive = Array.prototype.some.call(links, function (a) { return a.classList.contains("active"); });
     if (hasActive) return;
@@ -171,8 +175,12 @@
     Array.prototype.forEach.call(links, function (a) {
       var href = a.getAttribute("href") || "";
       if (!href || href.indexOf("http") === 0 || href.indexOf("#") === 0) return;
-      var target = href.split("?")[0].replace(/^\//, "");
-      if (target === current) {
+      
+      var targetPath = href.split("?")[0].replace(/^\//, "");
+      if (targetPath.endsWith("/")) targetPath = targetPath.slice(0, -1);
+      if (!targetPath || targetPath === "index.html") targetPath = "home";
+
+      if (targetPath === current) {
         a.classList.add("active");
         a.setAttribute("aria-current", "page");
       }

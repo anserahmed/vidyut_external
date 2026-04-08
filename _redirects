@@ -1,19 +1,17 @@
-# Netlify Redirects for Clean URLs
-/careers                /careers.html                200
-/about-us               /about-us.html               200
-/own-electric           /own-electric.html           200
-/electric-vehicles      /electric-vehicles.html      200
-/solutions              /solutions.html              200
-/for-customers          /for-customers.html          200
-/contact                /contact.html                200
-/nextride               /nextride.html               200
-/pre-owned               /pre-owned.html               200
-/vehicle-financing      /vehicle-financing.html      200
-/battery-subscription-baas /battery-subscription-baas.html 200
-/buyback-guarantee      /buyback-guarantee.html      200
-/services               /services.html               200
-/faqs                   /faqs.html                   200
-/customer-support       /customer-support.html       200
+# Netlify Redirects for Universal Directory Pattern
+# This ensures that legacy .html requests or extensionless requests 
+# map correctly to the folder-based index.html files.
+
+/careers                /careers/index.html          200
+/about-us               /about-us/index.html         200
+/own-electric           /own-electric/index.html     200
+/electric-vehicles      /electric-vehicles/index.html 200
+/solutions              /solutions/index.html        200
+/for-customers          /for-customers/index.html    200
+/contact                /contact/index.html           200
+/commercial-vehicles    /commercial-vehicles/index.html 200
+/personal-vehicles      /personal-vehicles/index.html   200
 
 # Home page
+/index.html             /                            301
 /                       /index.html                  200
