@@ -34,36 +34,24 @@
   }
 
   function activeMenuKey(pathname) {
-    var p = (pathname || "").split("/").pop() || "index.html";
+    // Normalize path: handle /, /about-us/, /about-us
+    var path = pathname || "";
+    if (path.endsWith("/")) path = path.slice(0, -1);
+    var p = path.split("/").pop() || "home";
+    p = p.replace(".html", "") || "home";
 
-    var ownPages = [
-      "own-electric.html",
-      "vehicle-financing.html",
-      "vehicle-financing-v2.html",
-      "battery-subscription-baas.html",
-      "buyback-guarantee.html",
-      "services.html",
-      "for-customers.html",
-      "lead-gen.html"
-    ];
-    var vehiclePages = [
-      "electric-vehicles.html",
-      "commercial-vehicles.html",
-      "commercial-3w.html",
-      "commercial-4w.html",
-      "personal-vehicles.html",
-      "personal-4w.html"
-    ];
-    var nextRidePages = ["nextride.html", "pre-owned.html"];
-    var aboutPages = ["about-us.html", "detail_team.html", "detail_careers.html"];
-    var contactPages = ["contact.html", "customer-support.html", "faqs.html"];
+    var ownPages = ["own-electric", "vehicle-financing", "battery-subscription-baas", "buyback-guarantee", "services", "for-customers"];
+    var vehiclePages = ["electric-vehicles", "commercial-vehicles", "commercial-3w", "commercial-4w", "personal-vehicles", "personal-4w"];
+    var nextRidePages = ["nextride", "pre-owned"];
+    var aboutPages = ["about-us", "detail_team", "detail_careers"];
+    var contactPages = ["contact", "customer-support", "faqs"];
 
-    if (p === "index.html") return "home";
+    if (p === "index" || p === "home" || p === "") return "home";
     if (ownPages.indexOf(p) >= 0) return "own";
     if (vehiclePages.indexOf(p) >= 0) return "vehicles";
     if (nextRidePages.indexOf(p) >= 0) return "nextride";
     if (aboutPages.indexOf(p) >= 0) return "about";
-    if (p === "careers.html") return "careers";
+    if (p === "careers") return "careers";
     if (contactPages.indexOf(p) >= 0) return "contact";
     return "";
   }
@@ -73,7 +61,14 @@
     var cls = isActive ? ' class="active"' : "";
     var aria = isActive ? ' aria-current="page"' : "";
     var external = key === "nextride" ? ' target="_blank" rel="noopener"' : "";
-    return '<a' + cls + aria + ' href="' + href + '"' + external + ">" + label + "</a>";
+    
+    // Ensure relative paths work from subdirectories
+    var absoluteHref = href;
+    if (href === "/") {
+      absoluteHref = "/index.html"; // Fallback for local, but usually just /
+    }
+
+    return '<a' + cls + aria + ' href="' + absoluteHref + '"' + external + ">" + label + "</a>";
   }
 
   function navButton(label, key, active) {
@@ -99,13 +94,13 @@
     var active = activeMenuKey(window.location.pathname);
 
     var linksHtml =
-      navLink("Home", "index.html", "home", active) +
-      navLink("Own Electric", "own-electric.html", "own", active) +
-      navLink("Vehicles", "electric-vehicles.html", "vehicles", active) +
+      navLink("Home", "/", "home", active) +
+      navLink("Own Electric", "/own-electric/", "own", active) +
+      navLink("Vehicles", "/electric-vehicles/", "vehicles", active) +
       navLink("NextRide ↗", "https://www.vidyutnextride.com/", "nextride", active) +
-      navLink("About Us", "about-us.html", "about", active) +
-      navLink("Careers", "careers.html", "careers", active) +
-      navLink("Contact Us", "contact.html", "contact", active);
+      navLink("About Us", "/about-us/", "about", active) +
+      navLink("Careers", "/careers/", "careers", active) +
+      navLink("Contact Us", "/contact/", "contact", active);
 
     /*
      * Structure:
@@ -196,16 +191,16 @@
     var footerMarkup =
       '<div class="container footer-main">' +
         '<div class="footer-brand-row">' +
-          '<a class="brand-mark" href="index.html" aria-label="Vidyut Home">' +
+          '<a class="brand-mark" href="/" aria-label="Vidyut Home">' +
             '<img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut">' +
           "</a>" +
         "</div>" +
         '<div class="footer-columns">' +
           '<div class="footer-col">' +
             "<h4>Quick Links</h4>" +
-            '<a href="about-us.html">About Us</a>' +
-            '<a href="electric-vehicles.html">Vehicles</a>' +
-            '<a href="careers.html">Careers</a>' +
+            '<a href="/about-us/">About Us</a>' +
+            '<a href="/electric-vehicles/">Vehicles</a>' +
+            '<a href="/careers/">Careers</a>' +
             '<a href="https://www.vidyuttech.com/policies/" target="_blank" rel="noopener">Policies</a>' +
             '<a href="https://www.vidyuttech.com/terms/" target="_blank" rel="noopener">Terms and Conditions</a>' +
             '<a href="https://www.vidyuttech.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>' +
@@ -614,6 +609,81 @@
     });
   }
 
+  function initHeaderScroll() {
+    var header = document.querySelector(".site-header");
+    if (!header) return;
+    var lastScroll = 0;
+    var threshold = 80;
+
+    window.addEventListener("scroll", function () {
+      var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll <= threshold) {
+        header.classList.remove("is-hidden");
+        return;
+      }
+      if (currentScroll > lastScroll && !header.classList.contains("is-hidden")) {
+        header.classList.add("is-hidden");
+      } else if (currentScroll < lastScroll && header.classList.contains("is-hidden")) {
+        header.classList.remove("is-hidden");
+      }
+      lastScroll = currentScroll;
+    }, { passive: true });
+  }
+
+  function initSectionObserver() {
+    var options = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    var revealTargets = document.querySelectorAll(".section, .hero, .cta-banner");
+    revealTargets.forEach(function (el) {
+      el.classList.add("reveal-init");
+      observer.observe(el);
+    });
+  }
+
+  function initValuesSlider() {
+    var strip = document.getElementById("values-strip");
+    var btnPrev = document.getElementById("values-prev");
+    var btnNext = document.getElementById("values-next");
+    if (!strip || !btnPrev || !btnNext) return;
+
+    function scrollStrip(direction) {
+      var scrollAmount = strip.clientWidth * 0.8;
+      strip.scrollBy({
+        left: direction * scrollAmount,
+        behavior: "smooth"
+      });
+    }
+
+    btnPrev.addEventListener("click", function () { scrollStrip(-1); });
+    btnNext.addEventListener("click", function () { scrollStrip(1); });
+
+    // Optional: Hide/Show arrows based on scroll position
+    function updateArrows() {
+      var atStart = strip.scrollLeft <= 5;
+      var atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 5;
+      btnPrev.style.opacity = atStart ? "0.3" : "1";
+      btnPrev.style.pointerEvents = atStart ? "none" : "auto";
+      btnNext.style.opacity = atEnd ? "0.3" : "1";
+      btnNext.style.pointerEvents = atEnd ? "none" : "auto";
+    }
+
+    strip.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    updateArrows();
+  }
+
   onReady(function () {
     renderGlobalMenu();
     renderGlobalFooter();
@@ -626,5 +696,8 @@
     initForms();
     initFacebookPixel();
     initPincodeLookup();
+    initHeaderScroll();
+    initSectionObserver();
+    initValuesSlider();
   });
 })();

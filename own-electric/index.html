@@ -1,0 +1,350 @@
+<!-- own-electric.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Own Electric | Vidyut</title>
+    <meta
+      name="description"
+      content="Own Electric integrates flexible financing, lifecycle maintenance, and resale support into one EV ownership model."
+    />
+    <link href="../css/revamp.css" rel="stylesheet" type="text/css" />
+    <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <style>
+      /* ── Card grids responsive ──────────────────────────────────────── */
+      .card-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(1rem, 2.5vw, 1.75rem);
+      }
+
+      @media (max-width: 900px) {
+        .card-grid-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .card-grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── Resale two-col responsive ──────────────────────────────────── */
+      .resale-two-col {
+        display: flex;
+        align-items: center;
+        gap: clamp(2rem, 5vw, 4rem);
+      }
+
+      .resale-media {
+        flex: 0 0 auto;
+        max-width: 340px;
+        width: 100%;
+      }
+
+      .resale-media img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .resale-copy {
+        flex: 1;
+      }
+
+      @media (max-width: 700px) {
+        .hero-copy h1 {
+          font-size: clamp(2.25rem, 10vw, 3.25rem);
+        }
+        .hero-copy .kicker {
+          display: inline-block !important;
+          padding: 6px 16px !important;
+          border: 1px solid rgba(255, 255, 255, 0.4) !important;
+          border-radius: 50px !important;
+          font-size: 0.75rem !important;
+          font-weight: 600 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.06em !important;
+          margin-bottom: 1rem !important;
+          color: #ffffff !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          backdrop-filter: blur(4px) !important;
+          -webkit-backdrop-filter: blur(4px) !important;
+        }
+        .hero-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: rgba(0, 0, 0, 0.625);
+          backdrop-filter: blur(3px) saturate(80%);
+          -webkit-backdrop-filter: blur(3px) saturate(80%);
+        }
+        .resale-two-col {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+
+        .resale-media {
+          max-width: 220px;
+        }
+      }
+
+      /* ── USP icon sizing ────────────────────────────────────────────── */
+      .usp-icon {
+        max-width: 56px;
+        height: auto;
+        display: block;
+        margin: 0.75rem 0;
+      }
+
+      /* ── Section padding ────────────────────────────────────────────── */
+      @media (max-width: 600px) {
+        .section {
+          padding-top: clamp(2.5rem, 8vw, 4rem);
+          padding-bottom: clamp(2.5rem, 8vw, 4rem);
+        }
+
+        .button-row {
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+      }
+
+      /* ── Audience card ──────────────────────────────────────────────── */
+      .audience-card {
+        box-sizing: border-box;
+      }
+
+      /* ── Eyebrow styling ────────────────────────────────────────────── */
+      .eyebrow {
+        text-align: center;
+        width: auto !important;
+        display: table !important;
+        margin: 0 auto 1rem !important;
+      }
+
+      .section h2 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="own-electric-page">
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container nav-inner">
+          <a class="brand-mark" href="/"
+            ><img
+              src="../images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg"
+              alt="Vidyut"
+          /></a>
+          <button
+            class="mobile-toggle"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+          <nav class="nav-links" aria-label="Primary Navigation">
+            <a href="/">Home</a>
+            <a class="active" href="/own-electric/">Own Electric</a>
+            <a href="https://www.vidyutnextride.com/">NextRide</a>
+            <a href="/solutions/">Solutions</a>
+            <a href="/for-customers/">For Customers</a>
+            <a href="/for-lenders/">For Lenders</a>
+            <a href="/for-investors/">For Investors</a>
+            <a href="/about-us/">Company</a>
+            <a href="/careers/">Careers</a>
+            <a href="/contact/">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-media" aria-hidden="true">
+            <img
+              loading="lazy"
+              src="../images/Banner-2-desktop-p-1600.webp"
+              alt=""
+            />
+          </div>
+          <div class="hero-overlay"></div>
+          <div class="container hero-copy">
+            <p class="kicker">Own Electric</p>
+            <h1 class="smarter" style="margin-top: 10px">
+              The Smarter Way <br class="desktop-br" />to Own <span class="text-accent">Electric</span>
+            </h1>
+            <p class="lead">
+              From purchase to performance to resale, Vidyut simplifies<br />the
+              entire EV journey.
+            </p>
+          </div>
+        </section>
+
+        <section class="section own-electric-financing-section">
+          <div class="container">
+            <p class="eyebrow">FLEXIBLE EMIs</p>
+            <h2>The Most Flexible EV Financing</h2>
+            <div class="card-grid-3">
+              <article class="audience-card usp-card">
+                <h3>Flexible Pay-Per-Use Model</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/Wallet-Gear_1Wallet Gear.png"
+                  alt="Usage-linked payment icon"
+                />
+                <p>
+                  Battery-as-a-Service allows usage-linked payments instead of
+                  fixed high EMIs.
+                </p>
+              </article>
+              <article class="audience-card usp-card">
+                <h3>Lower Upfront Capital</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/vehicle-financing.svg"
+                  alt="Lower upfront capital icon"
+                />
+                <p>Reduced down payment by separating battery from chassis.</p>
+              </article>
+              <article class="audience-card usp-card">
+                <h3>Faster Approvals &amp; Disbursals</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/paperwork-thumbnail.svg"
+                  alt="Faster approvals icon"
+                />
+                <p>
+                  Quick underwriting, Minimal Paperwork and rapid vehicle
+                  delivery.
+                </p>
+              </article>
+            </div>
+            <div class="button-row" style="justify-content: center">
+              <a
+                class="button primary"
+                href="/electric-vehicles/"
+                data-track="own_electric_explore_vehicles"
+                >Explore Vehicles</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="section own-electric-ownership-section">
+          <div class="container">
+            <p class="eyebrow">OWNERSHIP INFRASTRUCTURE</p>
+            <h2>Protect Your Asset</h2>
+            <div class="card-grid-3">
+              <article class="audience-card usp-card">
+                <h3>Structured MRO Network</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/Wrench.svg"
+                  alt="MRO network icon"
+                />
+                <p>
+                  Integrated maintenance support built for higher reliability in
+                  daily operations.
+                </p>
+              </article>
+              <article class="audience-card usp-card">
+                <h3>Lifecycle Service Visibility</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/inspection.svg"
+                  alt="Lifecycle visibility icon"
+                />
+                <p>
+                  Track key service milestones and keep your earning asset in
+                  optimal condition.
+                </p>
+              </article>
+              <article class="audience-card usp-card">
+                <h3>Higher Uptime</h3>
+                <img
+                  class="usp-icon"
+                  loading="lazy"
+                  src="../images/insurance.svg"
+                  alt="Higher uptime icon"
+                />
+                <p>
+                  Reduced downtime with fast support and predictable service
+                  workflows.
+                </p>
+              </article>
+            </div>
+            <p
+              class="meta service-callout"
+              style="text-align: center; margin-top: 1rem"
+            >
+              Availabel in Select Locations. Learn About our Service:
+            </p>
+            <div class="button-row" style="justify-content: center">
+              <a
+                class="button secondary"
+                href="/contact/?inquiry=query"
+                data-track="own_electric_learn_service"
+                >Connect with Our Team</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="section own-electric-resale-section">
+          <div class="container">
+            <p class="eyebrow">RESALE BUILT IN</p>
+            <h2>Resale, Reinvented for Electric Vehicles</h2>
+            <div class="resale-two-col">
+              <div class="resale-media">
+                <img
+                  loading="lazy"
+                  src="../images/buyback.svg"
+                  alt="Resale support through NextRide"
+                />
+              </div>
+              <div class="resale-copy">
+                <p class="lead">
+                  Customers financed through Vidyut receive structured resale
+                  support powered by NextRide.
+                </p>
+                <div class="button-row">
+                  <a
+                    class="button primary"
+                    href="https://www.vidyutnextride.com/"
+                    data-nextride="outbound"
+                    data-track="own_electric_visit_nextride"
+                    target="_blank"
+                    rel="noopener"
+                    >Visit NextRide</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div>© VidyutTech 2026</div>
+          <div class="footer-links">
+            <a href="https://www.vidyutnextride.com/">NextRide</a>
+            <a href="/for-lenders/">For Lenders</a>
+            <a href="/contact/">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="../js/config.js"></script>
+    <script src="../js/revamp.js"></script>
+  </body>
+</html>

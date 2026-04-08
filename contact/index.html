@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Vidyut</title>
+  <meta name="description" content="Contact Vidyut for EV ownership enquiries and partnership discussions across lenders and OEMs.">
+  <link href="../css/revamp.css" rel="stylesheet" type="text/css">
+  <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
+  <style>
+    /* ── Contact form section with bg image ─────────────────────────── */
+    .contact-form-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form-section > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── Form shell card lifted above bg ────────────────────────────── */
+    .contact-form-shell {
+      background: #fff;
+      border-radius: 20px;
+      padding: clamp(1.75rem, 4vw, 3rem);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    .contact-form-head h2 {
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-form-head .lead {
+      margin-bottom: 1.75rem;
+      color: #555;
+    }
+
+    /* ── Info section sits cleanly below ────────────────────────────── */
+    .contact-info-section {
+      background: #f7f7f9;
+      margin-top: clamp(2rem, 8vw, 5rem);
+      padding-top: clamp(3rem, 10vw, 6rem) !important;
+    }
+
+    .contact-info-card {
+      text-align: center;
+    }
+
+    .contact-info-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .contact-info-links a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .contact-form-shell {
+        border-radius: 14px;
+        padding: 1.5rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body class="contact-page">
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container nav-inner">
+        <a class="brand-mark" href="/"><img src="../images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>
+        <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="section contact-page-intro">
+        <div class="container">
+           <div aria-hidden="true" style="position:absolute; inset:0; z-index:0;">
+          <img src="../images/Banner-2-desktop-p-1600.webp" alt="" style="width:100%; height:140%; object-fit:cover; object-position:center; display:block;">
+        </div>
+        </div>
+      </section>
+
+      <section class="section contact-form-section">
+        <div class="container">
+          <div class="form-shell contact-form-shell">
+            <div class="contact-form-head">
+              <h2>Tell us what you need</h2>
+              <p class="lead">Share your requirement and the right Vidyut team will reach out shortly.</p>
+            </div>
+            <form data-form="emi" data-form-recipient="support@vidyuttech.com" data-form-subject="Vidyut Contact Form Submission" id="contact-intake-form" novalidate>
+              <div class="form-grid two">
+                <div>
+                  <label for="contact-inquiry-type">What are you looking for?</label>
+                  <select id="contact-inquiry-type" name="inquiry_type" required>
+                    <option value="">Select</option>
+                    <option value="own_ev">Looking to Own Electric</option>
+                    <option value="partner">Looking to Partner with Vidyut</option>
+                    <option value="query">Ask a query</option>
+                  </select>
+                </div>
+
+                <div id="partner-type-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-partner-type">Are you a lender or are you an OEM?</label>
+                  <select id="contact-partner-type" name="partner_type" disabled>
+                    <option value="">Select</option>
+                    <option value="lender">Lender</option>
+                    <option value="oem">OEM</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="contact-name">Name</label>
+                  <input id="contact-name" name="full_name" required inputmode="text" pattern="[A-Za-z ]+" title="Name should contain alphabets only">
+                  <p class="field-error" id="contact-name-error" aria-live="polite"></p>
+                </div>
+
+                <div>
+                  <label for="contact-email">Email</label>
+                  <input id="contact-email" name="email" type="email" inputmode="email">
+                  <p class="field-error" id="contact-email-error" aria-live="polite"></p>
+                </div>
+
+                <div>
+                  <label for="contact-phone">Phone</label>
+                  <input id="contact-phone" name="phone" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits">
+                  <p class="field-error" id="contact-phone-error" aria-live="polite"></p>
+                </div>
+
+                <div>
+                  <label for="contact-state">State</label>
+                  <select id="contact-state" name="state" required>
+                    <option value="">Select</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="contact-city">City</label>
+                  <input id="contact-city" name="city" required disabled placeholder="Select state first">
+                </div>
+
+                <div>
+                  <label for="contact-pincode">Pincode</label>
+                  <input id="contact-pincode" name="pincode" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6">
+                  <p class="field-error" id="contact-pincode-error" aria-live="polite"></p>
+                </div>
+
+                <div id="ownership-use-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-ownership-use">Commercial or personal vehicle</label>
+                  <select id="contact-ownership-use" name="ownership_use" disabled>
+                    <option value="">Select</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="personal">Personal</option>
+                  </select>
+                </div>
+
+                <div id="vehicle-form-factor-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-vehicle-form-factor">Vehicle type</label>
+                  <select id="contact-vehicle-form-factor" name="vehicle_type" disabled>
+                    <option value="">Select</option>
+                  </select>
+                </div>
+
+                <div id="oem-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-oem">OEM</label>
+                  <select id="contact-oem" name="oem" disabled>
+                    <option value="">Select</option>
+                  </select>
+                </div>
+
+                <div id="vehicle-model-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-vehicle-model">Vehicle Model</label>
+                  <select id="contact-vehicle-model" name="vehicle_model" disabled>
+                    <option value="">Select</option>
+                  </select>
+                </div>
+
+                <div id="qty-wrap" class="conditional-field is-hidden" hidden>
+                  <label for="contact-qty">Qty</label>
+                  <input id="contact-qty" name="quantity" type="number" min="1" step="1" inputmode="numeric" disabled>
+                </div>
+              </div>
+
+              <label for="contact-message">Queries / Message</label>
+              <textarea id="contact-message" name="message" placeholder="Tell us what you are looking for"></textarea>
+
+              <div class="button-row contact-form-actions">
+                <button class="button primary" type="submit" data-track="contact_form_submit">Submit</button>
+              </div>
+            </form>
+            <div class="form-success contact-success-modal" role="dialog" aria-modal="true" aria-labelledby="contact-success-title" aria-hidden="true">
+              <div class="contact-success-dialog">
+                <button class="contact-success-close" type="button" aria-label="Close success message">x</button>
+                <h3 id="contact-success-title">Thank you</h3>
+                <p>We have received your details and someone from our team will reach out to you shortly.</p>
+                <div class="button-row contact-success-actions">
+                  <button class="button secondary contact-success-dismiss" type="button">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt contact-info-section">
+        <div class="container">
+          <div class="contact-info-card">
+            <p class="eyebrow">Office</p>
+            <h2>Visit or Reach Us Directly</h2>
+            <p class="lead" style="text-align:center;">2nd Floor, 2nd Building, Hustlehub Techpark, 27th Main Road End, HSR Layout Sector 1, Bangalore, Karnataka, India - 560102</p>
+            <div class="contact-info-links">
+              <a href="tel:+917027024496">+91-702-702-4496</a>
+              <a href="mailto:support@vidyuttech.com">support@vidyuttech.com</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© VidyutTech 2026</div>
+        <div class="footer-links"><a href="/own-electric/">Own Electric</a><a href="https://www.vidyutnextride.com/">NextRide</a><a href="/about-us/">About Us</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var stateCities = {
+        "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Kurnool"],
+        "Arunachal Pradesh": ["Itanagar", "Naharlagun", "Tawang", "Pasighat"],
+        "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Tezpur"],
+        "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur", "Darbhanga"],
+        "Chhattisgarh": ["Raipur", "Bilaspur", "Durg", "Bhilai", "Korba"],
+        "Goa": ["Panaji", "Margao", "Vasco da Gama", "Mapusa", "Ponda"],
+        "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
+        "Haryana": ["Gurugram", "Faridabad", "Panipat", "Ambala", "Hisar"],
+        "Himachal Pradesh": ["Shimla", "Dharamshala", "Solan", "Mandi", "Baddi"],
+        "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Deoghar"],
+        "Karnataka": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi"],
+        "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur", "Kollam"],
+        "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain"],
+        "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"],
+        "Manipur": ["Imphal", "Thoubal", "Bishnupur", "Churachandpur"],
+        "Meghalaya": ["Shillong", "Tura", "Jowai", "Nongpoh"],
+        "Mizoram": ["Aizawl", "Lunglei", "Champhai", "Kolasib"],
+        "Nagaland": ["Kohima", "Dimapur", "Mokokchung", "Tuensang"],
+        "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri", "Berhampur"],
+        "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Mohali"],
+        "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+        "Sikkim": ["Gangtok", "Namchi", "Geyzing", "Mangan"],
+        "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem", "Tiruchirappalli"],
+        "Telangana": ["Hyderabad", "Warangal", "Karimnagar", "Nizamabad", "Khammam"],
+        "Tripura": ["Agartala", "Udaipur", "Dharmanagar", "Kailashahar"],
+        "Uttar Pradesh": ["Lucknow", "Noida", "Ghaziabad", "Kanpur", "Varanasi"],
+        "Uttarakhand": ["Dehradun", "Haridwar", "Haldwani", "Roorkee", "Rudrapur"],
+        "West Bengal": ["Kolkata", "Siliguri", "Durgapur", "Asansol", "Howrah"],
+        "Andaman and Nicobar Islands": ["Port Blair"],
+        "Chandigarh": ["Chandigarh"],
+        "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Diu", "Silvassa"],
+        "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"],
+        "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla"],
+        "Ladakh": ["Leh", "Kargil"],
+        "Lakshadweep": ["Kavaratti"],
+        "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+      };
+
+      var vehicleCatalogue = {
+        "3w_passenger": {
+          "Bajaj Auto": [
+            { model: "Bajaj Auto GoGo", variants: ["Standard"] },
+            { model: "RE", variants: ["Standard"] }
+          ],
+          "Euler": [
+            { model: "HiCity", variants: ["Standard"] }
+          ],
+          "Mahindra": [
+            { model: "Treo", variants: ["Standard"] },
+            { model: "Treo Plus", variants: ["Standard"] }
+          ],
+          "Montra": [
+            { model: "Super Auto", variants: ["Standard"] }
+          ],
+          "OmegaSeiki": [
+            { model: "Stream City", variants: ["Standard"] }
+          ],
+          "Piaggio": [
+            { model: "Apé E-City FX Max", variants: ["Standard"] }
+          ],
+          "TVS": [
+            { model: "King Deluxe", variants: ["Standard"] }
+          ]
+        },
+        "3w_cargo": {
+          "Bajaj Auto": [
+            { model: "Maxima-c", variants: ["Standard"] }
+          ],
+          "Euler": [
+            { model: "HiLoad EV", variants: ["Standard"] }
+          ],
+          "Mahindra": [
+            { model: "Treo Zor", variants: ["Standard"] },
+            { model: "Zor Grand", variants: ["Standard"] }
+          ],
+          "Montra": [
+            { model: "Montra Super Cargo", variants: ["Standard"] }
+          ],
+          "OmegaSeiki": [
+            { model: "Rage +", variants: ["Standard"] },
+            { model: "Rage + Rapid", variants: ["Standard"] }
+          ],
+          "Piaggio": [
+            { model: "Apé E-Xtra FX Max", variants: ["Standard"] }
+          ]
+        },
+        "4w_cargo": {
+          "Euler": [
+            { model: "Storm", variants: ["Standard"] }
+          ],
+          "Mahindra": [
+            { model: "Zeo", variants: ["Standard"] }
+          ],
+          "Tata Motors": [
+            { model: "ACE", variants: ["Standard"] }
+          ]
+        },
+        "car": {
+          "MG Motors": [
+            { model: "Comet EV", variants: ["Standard"] },
+            { model: "ZS EV", variants: ["Standard"] },
+            { model: "MG Windsor EV", variants: ["Standard"] }
+          ]
+        }
+      };
+
+      var inquiryType = document.getElementById("contact-inquiry-type");
+      var partnerTypeWrap = document.getElementById("partner-type-wrap");
+      var partnerType = document.getElementById("contact-partner-type");
+      var nameInput = document.getElementById("contact-name");
+      var emailInput = document.getElementById("contact-email");
+      var phoneInput = document.getElementById("contact-phone");
+      var stateSelect = document.getElementById("contact-state");
+      var cityInput = document.getElementById("contact-city");
+      var pincodeInput = document.getElementById("contact-pincode");
+      var nameError = document.getElementById("contact-name-error");
+      var emailError = document.getElementById("contact-email-error");
+      var phoneError = document.getElementById("contact-phone-error");
+      var pincodeError = document.getElementById("contact-pincode-error");
+      var ownershipUseWrap = document.getElementById("ownership-use-wrap");
+      var ownershipUse = document.getElementById("contact-ownership-use");
+      var formFactorWrap = document.getElementById("vehicle-form-factor-wrap");
+      var formFactor = document.getElementById("contact-vehicle-form-factor");
+      var oemField = document.getElementById("contact-oem");
+      var modelField = document.getElementById("contact-vehicle-model");
+      var ownEvFields = [
+        document.getElementById("oem-wrap"),
+        document.getElementById("vehicle-model-wrap"),
+        document.getElementById("qty-wrap")
+      ];
+
+      var ownEvInputs = ownEvFields.map(function (field) {
+        return field ? field.querySelector("input, select") : null;
+      }).filter(Boolean);
+
+      function setVisible(wrapper, active) {
+        if (!wrapper) return;
+        wrapper.hidden = !active;
+        wrapper.classList.toggle("is-hidden", !active);
+      }
+
+      function setEnabled(field, active, required) {
+        if (!field) return;
+        field.disabled = !active;
+        if (required) {
+          if (active) field.setAttribute("required", "required");
+          else field.removeAttribute("required");
+        }
+        if (!active) {
+          field.value = "";
+          field.removeAttribute("aria-invalid");
+        }
+      }
+
+      function setFieldError(field, errorNode, message) {
+        if (!field || !errorNode) return;
+        if (message) {
+          field.setAttribute("aria-invalid", "true");
+          errorNode.textContent = message;
+          errorNode.classList.add("show");
+          return;
+        }
+        field.removeAttribute("aria-invalid");
+        errorNode.textContent = "";
+        errorNode.classList.remove("show");
+      }
+
+      function updateFormFactorOptions() {
+        if (!formFactor || !ownershipUse) return;
+        var type = ownershipUse.value;
+        var options = ['<option value="">Select</option>'];
+        if (type === "commercial") {
+          options.push('<option value="3w_passenger">3W Passenger</option>');
+          options.push('<option value="3w_cargo">3W Cargo</option>');
+          options.push('<option value="4w_cargo">4W Cargo</option>');
+        } else if (type === "personal") {
+          options.push('<option value="car">Car</option>');
+        }
+        formFactor.innerHTML = options.join("");
+      }
+
+      function populateStateOptions() {
+        if (!stateSelect) return;
+        var states = Object.keys(stateCities).sort();
+        var options = ['<option value="">Select</option>'];
+        states.forEach(function (state) {
+          options.push('<option value="' + state + '">' + state + '</option>');
+        });
+        stateSelect.innerHTML = options.join("");
+      }
+
+      function updateCityOptions() {
+        if (!stateSelect || !cityInput) return;
+        var selectedState = stateSelect.value;
+        if (!selectedState) {
+          cityInput.disabled = true;
+          cityInput.placeholder = "Select state first";
+          cityInput.value = "";
+          cityInput.removeAttribute("aria-invalid");
+          return;
+        }
+        cityInput.disabled = false;
+        cityInput.placeholder = "Enter city";
+      }
+
+      function setSelectOptions(select, options, placeholder) {
+        if (!select) return;
+        var items = ['<option value="">' + (placeholder || "Select") + '</option>'];
+        options.forEach(function (option) {
+          if (typeof option === "string") {
+            items.push('<option value="' + option + '">' + option + '</option>');
+            return;
+          }
+          items.push('<option value="' + option.value + '">' + option.label + '</option>');
+        });
+        select.innerHTML = items.join("");
+      }
+
+      function getCatalogueForSelection() {
+        if (!formFactor) return {};
+        return vehicleCatalogue[formFactor.value] || {};
+      }
+
+      function updateOemOptions() {
+        if (!oemField) return;
+        var catalogue = getCatalogueForSelection();
+        var oems = Object.keys(catalogue).sort();
+        setSelectOptions(oemField, oems, oems.length ? "Select" : "No OEMs available");
+        oemField.disabled = !oems.length;
+        oemField.required = !!oems.length;
+        if (!oems.length) {
+          if (modelField) {
+            setSelectOptions(modelField, [], "No models available");
+            modelField.disabled = true;
+            modelField.required = false;
+          }
+        }
+      }
+
+      function updateModelOptions() {
+        if (!oemField || !modelField) return;
+        var catalogue = getCatalogueForSelection();
+        var models = (catalogue[oemField.value] || []).map(function (item) {
+          return { value: item.model, label: item.model };
+        });
+        setSelectOptions(modelField, models, models.length ? "Select" : "No models available");
+        modelField.disabled = !models.length;
+        modelField.required = !!models.length;
+      }
+
+      function syncState() {
+        var inquiry = inquiryType ? inquiryType.value : "";
+        var isPartner = inquiry === "partner";
+        var isOwnEv = inquiry === "own_ev";
+
+        setVisible(partnerTypeWrap, isPartner);
+        setEnabled(partnerType, isPartner, true);
+
+        setVisible(ownershipUseWrap, isOwnEv);
+        setEnabled(ownershipUse, isOwnEv, true);
+
+        setVisible(formFactorWrap, isOwnEv);
+        updateFormFactorOptions();
+        setEnabled(formFactor, isOwnEv, true);
+
+        ownEvFields.forEach(function (wrapper) { setVisible(wrapper, isOwnEv); });
+        ownEvInputs.forEach(function (input) { setEnabled(input, isOwnEv, false); });
+        if (isOwnEv) {
+          updateOemOptions();
+          updateModelOptions();
+        }
+      }
+
+      if (inquiryType) inquiryType.addEventListener("change", syncState);
+      if (nameInput) {
+        nameInput.addEventListener("input", function () {
+          nameInput.value = nameInput.value.replace(/[^A-Za-z ]+/g, "").replace(/\s{2,}/g, " ");
+          setFieldError(nameInput, nameError, "");
+        });
+      }
+      if (emailInput) {
+        emailInput.addEventListener("input", function () {
+          setFieldError(emailInput, emailError, "");
+        });
+      }
+      if (phoneInput) {
+        phoneInput.addEventListener("input", function () {
+          phoneInput.value = phoneInput.value.replace(/\D+/g, "").slice(0, 10);
+          setFieldError(phoneInput, phoneError, "");
+        });
+      }
+      if (pincodeInput) {
+        pincodeInput.addEventListener("input", function () {
+          pincodeInput.value = pincodeInput.value.replace(/\D+/g, "").slice(0, 6);
+          setFieldError(pincodeInput, pincodeError, "");
+        });
+      }
+      if (stateSelect) {
+        stateSelect.addEventListener("change", function () {
+          updateCityOptions();
+        });
+      }
+      if (ownershipUse) ownershipUse.addEventListener("change", function () {
+        updateFormFactorOptions();
+        if (formFactor) formFactor.value = "";
+        updateOemOptions();
+        updateModelOptions();
+      });
+      if (formFactor) formFactor.addEventListener("change", function () {
+        updateOemOptions();
+        if (oemField) oemField.value = "";
+        if (modelField) modelField.value = "";
+        updateModelOptions();
+      });
+      if (oemField) oemField.addEventListener("change", function () {
+        if (modelField) modelField.value = "";
+        updateModelOptions();
+      });
+      var form = document.getElementById("contact-intake-form");
+      if (form) {
+        form.addEventListener("submit", function (event) {
+          var nameValid = !nameInput || /^[A-Za-z ]+$/.test(nameInput.value.trim());
+          var phoneValid = !phoneInput || /^[0-9]{10}$/.test(phoneInput.value.trim());
+          var pincodeValid = !pincodeInput || /^[0-9]{6}$/.test(pincodeInput.value.trim());
+          var emailValid = !emailInput || !emailInput.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+
+          if (!nameValid) {
+            setFieldError(nameInput, nameError, "Only alphabets are allowed in the name.");
+            nameInput.focus();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
+
+          if (!phoneValid) {
+            setFieldError(phoneInput, phoneError, "Only digits are allowed and the number must be 10 digits.");
+            phoneInput.focus();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
+
+          if (!pincodeValid) {
+            setFieldError(pincodeInput, pincodeError, "PIN code is required and must be 6 digits.");
+            pincodeInput.focus();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
+
+          if (!emailValid) {
+            setFieldError(emailInput, emailError, "Enter a valid email address, for example name@example.com.");
+            emailInput.focus();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
+
+          setFieldError(nameInput, nameError, "");
+          setFieldError(emailInput, emailError, "");
+          setFieldError(phoneInput, phoneError, "");
+          setFieldError(pincodeInput, pincodeError, "");
+        }, true);
+
+        form.addEventListener("reset", function () {
+          window.setTimeout(function () {
+            updateCityOptions();
+            syncState();
+          }, 0);
+        });
+      }
+
+      var successModal = document.querySelector(".contact-success-modal");
+      if (successModal) {
+        var dismissButtons = successModal.querySelectorAll(".contact-success-close, .contact-success-dismiss");
+        dismissButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            successModal.classList.remove("show");
+            successModal.setAttribute("aria-hidden", "true");
+          });
+        });
+      }
+
+      populateStateOptions();
+      updateCityOptions();
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var inquiryPrefill = (params.get("inquiry") || "").toLowerCase();
+        if (inquiryType && inquiryPrefill === "partner") {
+          inquiryType.value = "partner";
+        } else if (inquiryType && inquiryPrefill === "own_ev") {
+          inquiryType.value = "own_ev";
+        } else if (inquiryType && inquiryPrefill === "query") {
+          inquiryType.value = "query";
+        }
+      } catch (err) { }
+      syncState();
+    });
+  </script>
+  <script src="../js/config.js"></script>
+  <script src="../js/revamp.js"></script>
+</body>
+</html>
