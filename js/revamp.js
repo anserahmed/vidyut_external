@@ -29,7 +29,7 @@
     if (document.querySelector('link[href$="css/revamp.css"]')) return;
     var link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "css/revamp.css";
+    link.href = "/css/revamp.css";
     document.head.appendChild(link);
   }
 
@@ -119,7 +119,7 @@
 
     var navMarkup =
       '<div class="container nav-inner ">' +
-        '<a class="brand-mark" href="/" aria-label="Vidyut Home"><img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>' +
+        '<a class="brand-mark" href="/" aria-label="Vidyut Home"><img src="/images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut"></a>' +
         '<button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">' +
           HAMBURGER_ICON +
           CLOSE_ICON +
@@ -200,7 +200,7 @@
       '<div class="container footer-main">' +
         '<div class="footer-brand-row">' +
           '<a class="brand-mark" href="/" aria-label="Vidyut Home">' +
-            '<img src="images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut">' +
+            '<img src="/images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg" alt="Vidyut">' +
           "</a>" +
         "</div>" +
         '<div class="footer-columns">' +
