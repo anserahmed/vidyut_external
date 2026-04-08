@@ -236,7 +236,7 @@
         z-index: 2;
         width: 100%;
         text-align: center;
-        padding: clamp(6rem, 10vw, 10rem) 1.5rem 0;
+        padding: clamp(6rem, 1vw, 10rem) 1.5rem 0;
       }
         .ev-hero__copy h1 {
           font-size: clamp(2rem, 5vw, 64px);
@@ -281,10 +281,12 @@
         }
 
         .ev-hero__copy {
-          padding: clamp(5rem, 100px, 7rem) clamp(1.25rem, 50vw, 2rem) 0;
+          padding: clamp(5rem, 10px, 7rem) clamp(1.25rem, 50vw, 2rem) 0;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+        text-align: start;
+
         }
          .ev-hero__copy p {
         margin-top: 0rem;
@@ -316,11 +318,15 @@
           </div>
           <div class="ev-hero__overlay"></div>
           <div class="ev-hero__copy">
-            <h1>Choose Your Ownership Track.</h1>
-            <p>
-              Personal, commercial, and pre-owned EVs under one ownership
+            <!-- <h1>Choose Your Ownership Track.</h1> -->
+             <h1 >
+              Choose Your Ownership <span class="text-accent">Track.</span>
+            </h1>
+             <p class="lead">
+           Personal, commercial, and pre-owned EVs under <br /> one ownership
               infrastructure.
             </p>
+         
           </div>
         </section>
 
