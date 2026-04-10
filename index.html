@@ -36,30 +36,32 @@
   <!-- Replaced hardcoded hero styles with central revamp.css styles -->
 </head>
 <style>
-    @media (max-width: 600px) {
-      .ownership-media-block img {
-     width: 42rem;
-        height: 14rem;
-        object-fit: cover;
-        transform: scale(1.03);
-}
-        .hero-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: rgba(0, 0, 0, 0.504);
-        /* backdrop-filter: blur(3px) saturate(80%); */
-        -webkit-backdrop-filter: blur(3px) saturate(80%);
-        }
-        }
+  @media (max-width: 600px) {
+    .ownership-media-block img {
+      width: 42rem;
+      height: 14rem;
+      object-fit: cover;
+      transform: scale(1.03);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.504);
+      /* backdrop-filter: blur(3px) saturate(80%); */
+      -webkit-backdrop-filter: blur(3px) saturate(80%);
+    }
+  }
+
   .hero-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: rgba(0, 0, 0, 0.144);
-        /* backdrop-filter: blur(0px) saturate(80%); */
-        /* -webkit-backdrop-filter: blur(3px) saturate(80%); */
-      }
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.144);
+    /* backdrop-filter: blur(0px) saturate(80%); */
+    /* -webkit-backdrop-filter: blur(3px) saturate(80%); */
+  }
 </style>
 
 <body>
@@ -79,15 +81,12 @@
              (desktop indent applied via <style> above; mobile reset in CSS) -->
         <div class="container hero-copy hero-copy-home">
           <p class="kicker">Own Electric</p>
-          <h1>Building India's EV <br class="desktop-br" />Ownership <br class="desktop-br" /><span
-              class="text-accent">Infrastructure</span></h1>
+          <h1>Building India's EV <br class="desktop-br" /><span class="text-brand-glow">Ownership</span> <br
+              class="desktop-br" />Infrastructure</h1>
           <p class="lead">
             Flexible Finance, Service &amp; Resale - <br class="desktop-br" />Integrated EV Ownership.
           </p>
-          <div class="button-row">
-            <a class="button primary btn-interactive-hero" href="/own-electric"
-              data-track="hero_explore_own_electric">Explore Own Electric</a>
-          </div>
+
         </div>
       </section>
 
@@ -317,7 +316,8 @@
         <div class="container">
           <div class="cta-banner">
             <h2 style="color: #ffffff; margin-bottom: 0.75rem;">Ready to Own Electric?</h2>
-            <p class="lead" style="color: rgba(255, 255, 255, 0.85); margin-bottom: 2rem;">Start your EV ownership journey with Vidyut.</p>
+            <p class="lead" style="color: rgba(255, 255, 255, 0.85); margin-bottom: 2rem;">Start your EV ownership
+              journey with Vidyut.</p>
             <div class="button-row" style="justify-content: center">
               <a class="button primary btn-interactive-hero" href="/electric-vehicles" data-track="final_apply_now"
                 style="background: #7c1cff; color: #ffffff; border-color: #7c1cff;">Apply Now</a>
@@ -364,12 +364,12 @@
                 padding: 3rem 1.5rem;
                 border-radius: 1.5rem;
               }
-              
+
               .cta-banner .button-row {
                 flex-direction: column;
                 gap: 1rem;
               }
-              
+
               .cta-banner .button {
                 width: 100%;
               }

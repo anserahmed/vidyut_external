@@ -217,7 +217,7 @@
             '<h4 class="sr-only">Quick Links Continued</h4>' +
             '<a href="https://www.vidyuttech.com/withdraw-consent/" target="_blank" rel="noopener">Withdraw Bureau Consent</a>' +
             '<a href="https://www.vidyuttech.com/Grievance-Redressal-Policy/" target="_blank" rel="noopener">Grievance Redressal Policy</a>' +
-            '<a href="https://consumer.experian.in/ECSINDIA-DCE/view/angular/" target="_blank" rel="noopener">Raise Experian Dispute</a>' +
+           
           "</div>" +
           '<div class="footer-col footer-contact">' +
             "<h4>Contact Us</h4>" +
