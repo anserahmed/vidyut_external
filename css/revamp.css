@@ -2812,14 +2812,40 @@ button[disabled],
   color: inherit;
   text-decoration: none;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .personal-listings-page .vehicle-listing-card img {
+  width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: contain;
   object-position: center;
   padding: .6rem;
   background: linear-gradient(180deg, #ffffff, #f8faff);
+  border-bottom: 1px solid var(--vd-border);
+}
+
+.vehicle-listing-card .testimonial-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.vehicle-listing-card .quote {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.vehicle-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.vehicle-card-footer .button {
+  width: 100%;
+  justify-content: center;
 }
 
 .personal-listings-page .vehicle-listing-card:hover,

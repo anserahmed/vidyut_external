@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return '' +
       '<a class="testimonial-card vehicle-listing-card" href="detail_product.html?handle=' + encodeURIComponent(item.handle || "") + '" data-brand="' + (item.brand || "") + '" data-track="p4w_' + (item.handle || "") + '" data-handle="' + (item.handle || "") + '" data-name="' + (item.name || "") + '" data-description="' + (item.description || "") + '" data-image="' + (item.image_local || "") + '" data-price="' + (item.price || "") + '" data-category="' + (item.categories_raw || "") + '" aria-label="View ' + (item.name || "vehicle") + ' details">' +
         '<img loading="lazy" src="' + (item.image_local || "") + '" alt="' + (item.name || "") + '">' +
-        '<div class="testimonial-content"><h3>' + (item.name || "") + '</h3><p class="meta">' + (item.brand || "") + '</p><p class="quote">' + (item.description || "") + '</p></div>' +
+        '<div class="testimonial-content"><h3>' + (item.name || "") + '</h3><p class="meta">' + (item.brand || "") + '</p><p class="quote">' + (item.description || "") + '</p><div class="vehicle-card-footer"><span class="button primary btn-sm">View Details</span></div></div>' +
       '</a>';
   }
 

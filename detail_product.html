@@ -48,8 +48,7 @@
         </div>
       </div>
       <a class="detail-cta" href="lead-gen.html" id="detail-apply">Apply Now</a>
-      <br>
-      <a class="detail-back" id="detail-back" href="electric-vehicles.html">&larr; Back to vehicles</a>
+
     </div>
   </div>
   <div class="detail-empty" id="detail-empty" hidden>
@@ -154,13 +153,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var crumbs = document.getElementById("detail-breadcrumbs");
-  var backLink = document.getElementById("detail-back");
   var seg = product.segment || "";
   var cls = product.vehicle_class || "";
 
   if (seg === "Personal") {
-    backLink.href = "personal-4w.html";
-    backLink.textContent = "\u2190 Back to Personal 4W";
     crumbs.innerHTML =
       '<a href="electric-vehicles.html">Vehicles</a>' +
       '<span class="page-breadcrumb-sep">/</span>' +
@@ -170,8 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
       '<span class="page-breadcrumb-sep">/</span>' +
       '<span class="is-current">' + (product.name || "") + '</span>';
   } else if (cls === "4W") {
-    backLink.href = "commercial-4w.html";
-    backLink.textContent = "\u2190 Back to Commercial 4W";
     crumbs.innerHTML =
       '<a href="electric-vehicles.html">Vehicles</a>' +
       '<span class="page-breadcrumb-sep">/</span>' +
@@ -181,8 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
       '<span class="page-breadcrumb-sep">/</span>' +
       '<span class="is-current">' + (product.name || "") + '</span>';
   } else {
-    backLink.href = "commercial-3w.html";
-    backLink.textContent = "\u2190 Back to Commercial 3W";
     crumbs.innerHTML =
       '<a href="electric-vehicles.html">Vehicles</a>' +
       '<span class="page-breadcrumb-sep">/</span>' +
