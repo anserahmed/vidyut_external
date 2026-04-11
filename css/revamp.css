@@ -141,7 +141,6 @@ video {
 .page-shell {
   background:
     radial-gradient(70rem 40rem at 90% -10%, #7c1cff14 0%, #7c1cff00 65%),
-    radial-gradient(60rem 36rem at -10% 20%, #ffffff 0%, #ffffff00 70%),
     var(--vd-bg);
 }
 
@@ -346,8 +345,8 @@ h1, h2 {
   font-weight: var(--vd-weight-bold);
 }
 
-.nav-links a:hover,
-.nav-link-button:hover,
+.nav-links a:not(.active):hover,
+.nav-link-button:not(.is-active):hover,
 .dropdown-menu a:hover {
   text-decoration: underline;
   text-underline-offset: .25rem;
@@ -1253,6 +1252,81 @@ h3 {
   border-radius: 1.25rem;
   background: linear-gradient(135deg, #f3e9ff 0%, #ffffff 100%);
   padding: 2.2rem 1rem;
+}
+
+/* Premium Dark CTA Banner variant */
+.cta-banner-dark {
+  position: relative;
+  background: linear-gradient(135deg, #0f091c 0%, #231a35 100%);
+  padding: clamp(3rem, 10vw, 5rem) 2rem;
+  border-radius: 2rem;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid rgba(124, 28, 255, 0.2);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+}
+
+.cta-banner-dark::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(124, 28, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-banner-dark h2 {
+  color: #ffffff !important;
+  margin-bottom: 0.75rem;
+}
+
+.cta-banner-dark .lead {
+  color: rgba(255, 255, 255, 0.85) !important;
+  margin-bottom: 2rem;
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+.cta-banner-dark .button {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.cta-banner-dark .button:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(124, 28, 255, 0.3);
+}
+
+/* Specific button styles within dark banner for premium feel */
+.cta-banner-dark .button.primary {
+  background: #7c1cff;
+  color: #ffffff;
+  border-color: #7c1cff;
+}
+
+.cta-banner-dark .button.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 600px) {
+  .cta-banner-dark {
+    padding: 3rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .cta-banner-dark .button-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cta-banner-dark .button {
+    width: 100%;
+  }
 }
 
 .cta-banner .lead {

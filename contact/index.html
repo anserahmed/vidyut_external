@@ -48,8 +48,10 @@
       /* ── Info section sits cleanly below ────────────────────────────── */
       .contact-info-section {
         background: #f7f7f9;
-        margin-top: clamp(0rem, 8vw, 5rem);
+        margin-top: clamp(1rem, 8vw, 5rem);
         padding-top: clamp(3rem, 10vw, 6rem) !important;
+        position: relative;
+        z-index: 3;
       }
 
       .contact-info-card {
@@ -77,11 +79,11 @@
           padding: 1.5rem 1.25rem;
          
         }
-         .contact-info-section {
-            background: #f7f7f9;
-            margin-top: clamp(0rem, 0vw, 1rem);
-            padding-top: clamp(3rem, 10vw, 0rem) !important;
-          }
+        .contact-info-section {
+          background: #f7f7f9;
+          margin-top: 2rem;
+          padding-top: 3rem !important;
+        }
       }
     </style>
   </head>

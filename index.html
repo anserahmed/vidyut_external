@@ -92,7 +92,7 @@
 
       <section class="section alt" style="padding: 0; margin: 0">
         <div class="media-break full-bleed">
-          <video id="home-ecosystem-video" autoplay muted loop controls playsinline preload="metadata"
+          <video id="home-ecosystem-video" autoplay muted loop playsinline preload="metadata"
             poster="videos/about-vidyut-poster-00001.jpg" src="videos/about-vidyut.webm"></video>
         </div>
       </section>
@@ -314,67 +314,15 @@
 
       <section class="section" id="emi-form">
         <div class="container">
-          <div class="cta-banner">
-            <h2 style="color: #ffffff; margin-bottom: 0.75rem;">Ready to Own Electric?</h2>
-            <p class="lead" style="color: rgba(255, 255, 255, 0.85); margin-bottom: 2rem;">Start your EV ownership
-              journey with Vidyut.</p>
+          <div class="cta-banner-dark">
+            <h2>Ready to Own Electric?</h2>
+            <p class="lead">Start your EV ownership journey with Vidyut.</p>
             <div class="button-row" style="justify-content: center">
-              <a class="button primary btn-interactive-hero" href="/electric-vehicles" data-track="final_apply_now"
-                style="background: #7c1cff; color: #ffffff; border-color: #7c1cff;">Apply Now</a>
+              <a class="button primary btn-interactive-hero" href="/electric-vehicles" data-track="final_apply_now">Apply Now</a>
               <a class="button secondary btn-interactive-hero" href="/contact/?inquiry=partner"
-                data-track="final_partner_with_vidyut"
-                style="background: rgba(255,255,255,0.05); color: #ffffff; border-color: rgba(255,255,255,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">Partner
-                With Vidyut</a>
+                data-track="final_partner_with_vidyut">Partner With Vidyut</a>
             </div>
           </div>
-          <style>
-            .cta-banner {
-              position: relative;
-              background: linear-gradient(135deg, #0f091c 0%, #231a35 100%);
-              padding: clamp(3rem, 10vw, 5rem) 2rem;
-              border-radius: 2rem;
-              text-align: center;
-              overflow: hidden;
-              border: 1px solid rgba(124, 28, 255, 0.2);
-              box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
-            }
-
-            .cta-banner::before {
-              content: '';
-              position: absolute;
-              top: -50%;
-              left: -50%;
-              width: 200%;
-              height: 200%;
-              background: radial-gradient(circle at center, rgba(124, 28, 255, 0.1) 0%, transparent 70%);
-              pointer-events: none;
-            }
-
-            .cta-banner .button {
-              transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
-            }
-
-            .cta-banner .button:hover {
-              transform: translateY(-4px) scale(1.02);
-              box-shadow: 0 10px 25px rgba(124, 28, 255, 0.3);
-            }
-
-            @media (max-width: 600px) {
-              .cta-banner {
-                padding: 3rem 1.5rem;
-                border-radius: 1.5rem;
-              }
-
-              .cta-banner .button-row {
-                flex-direction: column;
-                gap: 1rem;
-              }
-
-              .cta-banner .button {
-                width: 100%;
-              }
-            }
-          </style>
         </div>
       </section>
     </main>
