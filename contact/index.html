@@ -12,88 +12,94 @@
     <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
     <style>
       /* ── Contact form section with bg image ─────────────────────────── */
-      .contact-form-section {
+      /* ── Full-screen Hero Layout ────────────────────────────────────── */
+      .contact-hero-fullscreen {
         position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
+        padding: 5rem 0; /* Space for sticky header */
       }
 
-      .contact-form-section > .container {
-        position: relative;
+      .contact-hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      .contact-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .contact-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5); /* Slightly darker for legibility since blur is removed */
         z-index: 2;
       }
 
-      /* ── Form shell card lifted above bg ────────────────────────────── */
+      .contact-hero-content {
+        position: relative;
+        z-index: 10; /* Lower than header but above background */
+        width: 100%;
+      }
+
+      .form-grid.two {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid.two {
+          grid-template-columns: 1fr;
+        }
+      }
+
       .contact-form-shell {
         background: #fff;
         border-radius: 20px;
         padding: clamp(1.75rem, 4vw, 3rem);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
-        max-width: 860px;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+        max-width: 860px; /* Reverted to more balanced width */
         margin-inline: auto;
       }
 
       .contact-form-head h2 {
         margin-bottom: 0.4rem;
       }
-      .contact-form-head p {
-        margin-bottom: 0.4rem;
-        font-size: 0.8rem;
-      }
-
-      .contact-form-head .lead {
+      .contact-form-head p.lead {
         margin-bottom: 1.75rem;
         color: #555;
       }
 
-      /* ── Info section sits cleanly below ────────────────────────────── */
-      .contact-info-section {
-        background: #f7f7f9;
-        margin-top: clamp(1rem, 8vw, 5rem);
-        padding-top: clamp(3rem, 10vw, 6rem) !important;
-        position: relative;
-        z-index: 3;
-      }
-
-      .contact-info-card {
-        text-align: center;
-      }
-
-      .contact-info-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.25rem;
-        margin-top: 1rem;
-      }
-
-      .contact-info-links a {
-        color: inherit;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
       /* ── Responsive ─────────────────────────────────────────────────── */
       @media (max-width: 600px) {
+        .contact-hero-fullscreen {
+          padding-top: 8rem;
+          padding-bottom: 4rem;
+          min-height: auto;
+          display: block; /* Allow normal scrolling for long form */
+        }
         .contact-form-shell {
           border-radius: 14px;
           padding: 1.5rem 1.25rem;
-         
-        }
-        .contact-info-section {
-          background: #f7f7f9;
-          margin-top: 2rem;
-          padding-top: 3rem !important;
         }
       }
     </style>
   </head>
   <body class="contact-page">
     <div class="page-shell">
-      <header class="site-header">
+      <header class="site-header" style="z-index: 1000 !important;">
         <div class="container nav-inner">
           <a class="brand-mark" href="/"
             ><img
-              src="../images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg"
+              src="/images/Horizontal_Full-Colour_-Dark_FullLogo-1-1.svg"
               alt="Vidyut"
           /></a>
           <button
@@ -107,283 +113,269 @@
       </header>
 
       <main>
-        <section class="section contact-page-intro">
-          <div class="container">
-            <div
-              aria-hidden="true"
-              style="position: absolute; inset: 0; z-index: 0"
-            >
-              <img
-                src="../images/Banner-2-desktop-p-1600.webp"
-                alt=""
-                style="
-                  width: 100%;
-                  height: 153%;
-                  object-fit: cover;
-                  object-position: center;
-                  display: block;
-                "
-              />
-            </div>
+        <section class="contact-hero-fullscreen">
+          <div class="contact-hero-bg" aria-hidden="true">
+            <img src="/images/Banner-2-desktop-p-1600.webp" alt="">
           </div>
-        </section>
-
-        <section class="section contact-form-section">
-          <div class="container">
-            <div class="form-shell contact-form-shell">
-              <div class="contact-form-head">
-                <h2>Tell us what you need</h2>
-                <p class="lead">
-                  Share your requirement and the right Vidyut team will reach
-                  out shortly.
-                </p>
-              </div>
-              <form
-                data-form="emi"
-                data-form-recipient="support@vidyuttech.com"
-                data-form-subject="Vidyut Contact Form Submission"
-                id="contact-intake-form"
-                novalidate
-              >
-                <div class="form-grid two">
-                  <div>
-                    <label for="contact-inquiry-type"
-                      >What are you looking for?</label
-                    >
-                    <select
-                      id="contact-inquiry-type"
-                      name="inquiry_type"
-                      required
-                    >
-                      <option value="">Select</option>
-                      <option value="own_ev">Looking to Own Electric</option>
-                      <option value="partner">
-                        Looking to Partner with Vidyut
-                      </option>
-                      <option value="query">Ask a query</option>
-                    </select>
-                  </div>
-
-                  <div
-                    id="partner-type-wrap"
-                    class="conditional-field is-hidden"
-                    hidden
-                  >
-                    <label for="contact-partner-type"
-                      >Are you a lender or are you an OEM?</label
-                    >
-                    <select
-                      id="contact-partner-type"
-                      name="partner_type"
-                      disabled
-                    >
-                      <option value="">Select</option>
-                      <option value="lender">Lender</option>
-                      <option value="oem">OEM</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label for="contact-name">Name</label>
-                    <input
-                      id="contact-name"
-                      name="full_name"
-                      required
-                      inputmode="text"
-                      pattern="[A-Za-z ]+"
-                      title="Name should contain alphabets only"
-                    />
-                    <p
-                      class="field-error"
-                      id="contact-name-error"
-                      aria-live="polite"
-                    ></p>
-                  </div>
-
-                  <div>
-                    <label for="contact-email">Email</label>
-                    <input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      inputmode="email"
-                    />
-                    <p
-                      class="field-error"
-                      id="contact-email-error"
-                      aria-live="polite"
-                    ></p>
-                  </div>
-
-                  <div>
-                    <label for="contact-phone">Phone</label>
-                    <input
-                      id="contact-phone"
-                      name="phone"
-                      required
-                      inputmode="numeric"
-                      maxlength="10"
-                      pattern="[0-9]{10}"
-                      title="Phone number must be 10 digits"
-                    />
-                    <p
-                      class="field-error"
-                      id="contact-phone-error"
-                      aria-live="polite"
-                    ></p>
-                  </div>
-
-                  <div>
-                    <label for="contact-state">State</label>
-                    <select id="contact-state" name="state" required>
-                      <option value="">Select</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label for="contact-city">City</label>
-                    <input
-                      id="contact-city"
-                      name="city"
-                      required
-                      disabled
-                      placeholder="Select state first"
-                    />
-                  </div>
-
-                  <div>
-                    <label for="contact-pincode">Pincode</label>
-                    <input
-                      id="contact-pincode"
-                      name="pincode"
-                      required
-                      inputmode="numeric"
-                      pattern="[0-9]{6}"
-                      maxlength="6"
-                    />
-                    <p
-                      class="field-error"
-                      id="contact-pincode-error"
-                      aria-live="polite"
-                    ></p>
-                  </div>
-
-                  <div
-                    id="ownership-use-wrap"
-                    class="conditional-field is-hidden"
-                    hidden
-                  >
-                    <label for="contact-ownership-use"
-                      >Commercial or personal vehicle</label
-                    >
-                    <select
-                      id="contact-ownership-use"
-                      name="ownership_use"
-                      disabled
-                    >
-                      <option value="">Select</option>
-                      <option value="commercial">Commercial</option>
-                      <option value="personal">Personal</option>
-                    </select>
-                  </div>
-
-                  <div
-                    id="vehicle-form-factor-wrap"
-                    class="conditional-field is-hidden"
-                    hidden
-                  >
-                    <label for="contact-vehicle-form-factor"
-                      >Vehicle type</label
-                    >
-                    <select
-                      id="contact-vehicle-form-factor"
-                      name="vehicle_type"
-                      disabled
-                    >
-                      <option value="">Select</option>
-                    </select>
-                  </div>
-
-                  <div id="oem-wrap" class="conditional-field is-hidden" hidden>
-                    <label for="contact-oem">OEM</label>
-                    <select id="contact-oem" name="oem" disabled>
-                      <option value="">Select</option>
-                    </select>
-                  </div>
-
-                  <div
-                    id="vehicle-model-wrap"
-                    class="conditional-field is-hidden"
-                    hidden
-                  >
-                    <label for="contact-vehicle-model">Vehicle Model</label>
-                    <select
-                      id="contact-vehicle-model"
-                      name="vehicle_model"
-                      disabled
-                    >
-                      <option value="">Select</option>
-                    </select>
-                  </div>
-
-                  <div id="qty-wrap" class="conditional-field is-hidden" hidden>
-                    <label for="contact-qty">Qty</label>
-                    <input
-                      id="contact-qty"
-                      name="quantity"
-                      type="number"
-                      min="1"
-                      step="1"
-                      inputmode="numeric"
-                      disabled
-                    />
-                  </div>
-                </div>
-
-                <label for="contact-message">Queries / Message</label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  placeholder="Tell us what you are looking for"
-                ></textarea>
-
-                <div class="button-row contact-form-actions">
-                  <button
-                    class="button primary"
-                    type="submit"
-                    data-track="contact_form_submit"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-              <div
-                class="form-success contact-success-modal"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="contact-success-title"
-                aria-hidden="true"
-              >
-                <div class="contact-success-dialog">
-                  <button
-                    class="contact-success-close"
-                    type="button"
-                    aria-label="Close success message"
-                  >
-                    x
-                  </button>
-                  <h3 id="contact-success-title">Thank you</h3>
-                  <p>
-                    We have received your details and someone from our team will
-                    reach out to you shortly.
+          <div class="contact-hero-overlay" aria-hidden="true"></div>
+          
+          <div class="contact-hero-content">
+            <div class="container">
+              <div class="contact-form-shell">
+                <div class="contact-form-head">
+                  <h2>Tell us what you need</h2>
+                  <p class="lead">
+                    Share your requirement and the right Vidyut team will reach
+                    out shortly.
                   </p>
-                  <div class="button-row contact-success-actions">
-                    <button
-                      class="button secondary contact-success-dismiss"
-                      type="button"
+                </div>
+                <form
+                  data-form="emi"
+                  data-form-recipient="support@vidyuttech.com"
+                  data-form-subject="Vidyut Contact Form Submission"
+                  id="contact-intake-form"
+                  novalidate
+                >
+                  <div class="form-grid two">
+                    <div>
+                      <label for="contact-inquiry-type"
+                        >What are you looking for?</label
+                      >
+                      <select
+                        id="contact-inquiry-type"
+                        name="inquiry_type"
+                        required
+                      >
+                        <option value="">Select</option>
+                        <option value="own_ev">Looking to Own Electric</option>
+                        <option value="partner">
+                          Looking to Partner with Vidyut
+                        </option>
+                        <option value="query">Ask a query</option>
+                      </select>
+                    </div>
+
+                    <div
+                      id="partner-type-wrap"
+                      class="conditional-field is-hidden"
+                      hidden
                     >
-                      Close
+                      <label for="contact-partner-type"
+                        >Are you a lender or are you an OEM?</label
+                      >
+                      <select
+                        id="contact-partner-type"
+                        name="partner_type"
+                        disabled
+                      >
+                        <option value="">Select</option>
+                        <option value="lender">Lender</option>
+                        <option value="oem">OEM</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="contact-name">Name</label>
+                      <input
+                        id="contact-name"
+                        name="full_name"
+                        required
+                        inputmode="text"
+                        pattern="[A-Za-z ]+"
+                        title="Name should contain alphabets only"
+                      />
+                      <p
+                        class="field-error"
+                        id="contact-name-error"
+                        aria-live="polite"
+                      ></p>
+                    </div>
+
+                    <div>
+                      <label for="contact-email">Email</label>
+                      <input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        inputmode="email"
+                      />
+                      <p
+                        class="field-error"
+                        id="contact-email-error"
+                        aria-live="polite"
+                      ></p>
+                    </div>
+
+                    <div>
+                      <label for="contact-phone">Phone</label>
+                      <input
+                        id="contact-phone"
+                        name="phone"
+                        required
+                        inputmode="numeric"
+                        maxlength="10"
+                        pattern="[0-9]{10}"
+                        title="Phone number must be 10 digits"
+                      />
+                      <p
+                        class="field-error"
+                        id="contact-phone-error"
+                        aria-live="polite"
+                      ></p>
+                    </div>
+
+                    <div>
+                      <label for="contact-state">State</label>
+                      <select id="contact-state" name="state" required>
+                        <option value="">Select</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="contact-city">City</label>
+                      <input
+                        id="contact-city"
+                        name="city"
+                        required
+                        disabled
+                        placeholder="Select state first"
+                      />
+                    </div>
+
+                    <div>
+                      <label for="contact-pincode">Pincode</label>
+                      <input
+                        id="contact-pincode"
+                        name="pincode"
+                        required
+                        inputmode="numeric"
+                        pattern="[0-9]{6}"
+                        maxlength="6"
+                      />
+                      <p
+                        class="field-error"
+                        id="contact-pincode-error"
+                        aria-live="polite"
+                      ></p>
+                    </div>
+
+                    <div
+                      id="ownership-use-wrap"
+                      class="conditional-field is-hidden"
+                      hidden
+                    >
+                      <label for="contact-ownership-use"
+                        >Commercial or personal vehicle</label
+                      >
+                      <select
+                        id="contact-ownership-use"
+                        name="ownership_use"
+                        disabled
+                      >
+                        <option value="">Select</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="personal">Personal</option>
+                      </select>
+                    </div>
+
+                    <div
+                      id="vehicle-form-factor-wrap"
+                      class="conditional-field is-hidden"
+                      hidden
+                    >
+                      <label for="contact-vehicle-form-factor"
+                        >Vehicle type</label
+                      >
+                      <select
+                        id="contact-vehicle-form-factor"
+                        name="vehicle_type"
+                        disabled
+                      >
+                        <option value="">Select</option>
+                      </select>
+                    </div>
+
+                    <div id="oem-wrap" class="conditional-field is-hidden" hidden>
+                      <label for="contact-oem">OEM</label>
+                      <select id="contact-oem" name="oem" disabled>
+                        <option value="">Select</option>
+                      </select>
+                    </div>
+
+                    <div
+                      id="vehicle-model-wrap"
+                      class="conditional-field is-hidden"
+                      hidden
+                    >
+                      <label for="contact-vehicle-model">Vehicle Model</label>
+                      <select
+                        id="contact-vehicle-model"
+                        name="vehicle_model"
+                        disabled
+                      >
+                        <option value="">Select</option>
+                      </select>
+                    </div>
+
+                    <div id="qty-wrap" class="conditional-field is-hidden" hidden>
+                      <label for="contact-qty">Qty</label>
+                      <input
+                        id="contact-qty"
+                        name="quantity"
+                        type="number"
+                        min="1"
+                        step="1"
+                        inputmode="numeric"
+                        disabled
+                      />
+                    </div>
+                  </div>
+
+                  <label for="contact-message">Queries / Message</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    placeholder="Tell us what you are looking for"
+                  ></textarea>
+
+                  <div class="button-row contact-form-actions">
+                    <button
+                      class="button primary"
+                      type="submit"
+                      data-track="contact_form_submit"
+                    >
+                      Submit
                     </button>
+                  </div>
+                </form>
+                <div
+                  class="form-success contact-success-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="contact-success-title"
+                  aria-hidden="true"
+                >
+                  <div class="contact-success-dialog">
+                    <button
+                      class="contact-success-close"
+                      type="button"
+                      aria-label="Close success message"
+                    >
+                      x
+                    </button>
+                    <h3 id="contact-success-title">Thank you</h3>
+                    <p>
+                      We have received your details and someone from our team will
+                      reach out to you shortly.
+                    </p>
+                    <div class="button-row contact-success-actions">
+                      <button
+                        class="button secondary contact-success-dismiss"
+                        type="button"
+                      >
+                        Close
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -415,9 +407,9 @@
         <div class="container footer-inner">
           <div>© VidyutTech 2026</div>
           <div class="footer-links">
-            <a href="/own-electric/">Own Electric</a
+            <a href="/own-electric">Own Electric</a
             ><a href="https://www.vidyutnextride.com/">NextRide</a
-            ><a href="/about-us/">About Us</a>
+            ><a href="/about-us">About Us</a>
           </div>
         </div>
       </footer>
